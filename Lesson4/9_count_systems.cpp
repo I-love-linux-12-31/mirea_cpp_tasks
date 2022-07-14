@@ -39,6 +39,25 @@ int to_dec(int value[1024], int cs) {
 }
 
 
+int get_index(char a) {
+    for (int i = 0; i < 36; i++){
+        if (alphabet[i] == std::toupper(a)){
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+bool check_input_correct(std::string input, int cs){
+    for (char i : input) {
+        if (get_index(i) >= cs)
+            return false;
+    }
+    return true;
+}
+
+
 int* to_any(int dec_value, int cs) {
     int pre_result[1024];
     for (int i = 0; i < 1024; i++){
@@ -75,16 +94,6 @@ int* to_any(int dec_value, int cs) {
 }
 
 
-int get_index(char a) {
-    for (int i = 0; i < 36; i++){
-        if (alphabet[i] == std::toupper(a)){
-            return i;
-        }
-    }
-    return -1;
-
-
-}
 int read_data_to_dec(int cs){
     static int result;
     static char a[1024];
@@ -94,6 +103,12 @@ int read_data_to_dec(int cs){
     }
     std::cout << "Введите число :" << std::endl;
     std::cin >> a;
+    while (!check_input_correct(a, cs)){
+        std::cout << "Ввод некоректен (Не соответствует заявленой системе счисления) !"<< std::endl;
+        std::cout << "Введите число: ";
+        // std::getline(std::cin, a);
+        std::cin >> a;
+    }
 
     char t;
     int j = 0;
