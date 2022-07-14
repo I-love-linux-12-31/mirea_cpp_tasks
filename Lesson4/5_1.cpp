@@ -24,7 +24,7 @@ int main(){
     std::cout << "Введите c: ";
     c = (double)get_float_from_user();
     std::cout << "Введите d: ";
-    d = (double)get_float_from_user();
+    d = (double)get_float_from_user() * -1.0;
 
     for(int y=0; y<16; y++){
         for(int x=0; x<128; x++){
@@ -40,7 +40,7 @@ int main(){
             // std::cout << "SET " << x << " " << 8 + (int)round(val) << " !" << std::endl;
         }
         else {
-            std::cout << "ERR \n";
+            // std::cout << "ERR \n";
         }
     }
 

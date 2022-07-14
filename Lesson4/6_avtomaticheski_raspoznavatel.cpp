@@ -1,5 +1,6 @@
 // Lesson 4
 #include <iostream>
+#include <string>
 
 
 int get_dec_value (char &t){
@@ -15,21 +16,36 @@ int get_dec_value (char &t){
     }
 }
 
+
+bool is_correct_string(std::string str){
+    for (unsigned int i = 0; i < str.length(); i++){
+        char res2 = std::toupper(str[i]);
+        if(get_dec_value(res2) == 0)
+            return false;
+    }
+    return true;
+}
+
 int main() {
-    char line[128];
-    for (int i = 0; i < 128; i++)
-        line[i] = ' ';
+    std::string line;
     std::cout << "Введите число:" << std::endl;
-    std::cin >> line;
+    //std::cin >> line;
+    line = " ";
+    std::getline(std::cin, line);
+    while(!is_correct_string(line)){
+        std::cout << "Ввод некоректен! Введите римское число :";
+        std::getline(std::cin, line);
+    }
 
     int result = 0;
     int current_level = 0;
     int temp = 0;
-    for (int i = 0; i < 128; i++){
-        char l = line[127 - i];
+    for (int i = 0; i < line.size(); i++){
+        char l = line[line.size() - 1 - i];
         if (l != ' ' and (int)l > 33){
             //std::cout << get_dec_value(l) << std::endl;
-            temp = get_dec_value(l);
+            char res = std::toupper(l);
+            temp = get_dec_value(res);
             if (temp < current_level){
                 result -= temp;
             }
