@@ -23,7 +23,7 @@ int main(){
     jed_utils::datetime dt_now = jed_utils::datetime();
 
     std::cout << "С этого момента прошло: ";
-    std::cout << dt_now.get_year() - dt.get_year() << " дней, ";
+    std::cout << dt_now.get_year() - dt.get_year() << " лет, ";
     std::cout << dt_now.get_month() - dt.get_month() << " месяцов, ";
     std::cout << dt_now.get_day() - dt.get_day() << " дней.";
 
