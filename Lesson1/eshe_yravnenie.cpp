@@ -7,7 +7,7 @@ int main() {
     setlocale(0, "ru_RU.UTF-8");
     //cout << "Ярослав Kuznetsov!" << endl;
 
-    double a, b, c, x, descr;
+    double a, b, c, descr;
     cout << "Введите a:\n";
     cin >> a;
     cout << "Введите b:\n";

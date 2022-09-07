@@ -26,7 +26,7 @@ double read_data () {
 }
 
 int main() {
-    double a, b, h, r, result;
+    double a, b, h, r;
     std::cout << "== Треугольник ==" << std::endl;
     std::cout << "Введите сторону: ";
     //std::cin >> a;
