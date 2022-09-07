@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <string>
 
 std::string alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -69,30 +68,54 @@ int* to_any(int dec_value, int cs) {
             j++;
         }
     }
-
     return result;
-
 
 }
 
-//char[128] change_cs (char[128] value, int cs_old, cs_new) {
-//
-//    return ' ';
-//}
+
+int get_index(char a) {
+    for (int i = 0; i < 36; i++){
+        if (alphabet[i] == a){
+            return i;
+        }
+    }
+    return -1;
+
+
+}
+int read_data_to_dec(int cs){
+    static int result;
+    static char a[1024];
+
+    for (int i = 0; i < 1024; i++){
+        a[i] = ' ';
+    }
+    std::cout << "Введите число :" << std::endl;
+    std::cin >> a;
+
+    char t;
+    int j = 0;
+    for (int i = 0; i < 1024; i++){
+        t = a[1024 - (1 + i)];
+        if (t != ' ' and t != '\n' and (int)t > 0 ){
+            result = result + get_index(t) * pow(cs, j);
+            j++;
+        }
+    }
+    return result;
+}
 
 int main() {
 
-    int test[1024];
-    for (int i = 0; i < 1024; i++){
-        test[i] = -1;
-    }
-    test[0] = 1;
-    test[1] = 1;
+    std::cout << "Введите систему счисления (целое число) :" << std::endl;
+    int cs;
+    std::cin >> cs;
+    int data_in;
+    data_in = read_data_to_dec(cs);
 
-    int* data_link;
-    data_link = to_any(325366576, 100);
-    //std::cout << data_link[1];
-    print_human_readable(data_link, 100);
+    std::cout << "Введите новую систему счисления (целое число) :" << std::endl;
+    std::cin >> cs;
+    print_human_readable(to_any(data_in, cs), cs);
 
 
     return 0;
