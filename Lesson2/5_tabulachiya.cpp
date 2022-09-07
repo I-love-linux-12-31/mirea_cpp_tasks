@@ -12,7 +12,12 @@ int main() {
     std::cout << "x\t\ty" << std::endl;
 
     while (j <= 4.0){
-        std::cout << j << "\t\t" << func(j) << std::endl;
+        if (j != 1) {
+            std::cout << j << "\t\t" << func(j) << std::endl;
+        }
+        else {
+            std::cout << j << "\t\t" << "Не существует !" << std::endl;
+        }
         j = j + 0.5;
     }
 
