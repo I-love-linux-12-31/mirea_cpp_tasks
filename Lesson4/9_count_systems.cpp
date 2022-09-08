@@ -1,7 +1,5 @@
 // Lesson 4
-// TODO : Not working !
-// Example 682 (9) -> x (10) = 660 ! correct = 560 (10)
-// Example 841 (10) -> x (6) = 4521 ! correct = 3521 (6)
+
 #include <iostream>
 #include <cmath>
 
@@ -41,7 +39,7 @@ int to_dec(int value[1024], int cs) {
 }
 
 
-int* to_any(int dec_value, int cs) { // TODO : <-- error in this function!
+int* to_any(int dec_value, int cs) {
     int pre_result[1024];
     for (int i = 0; i < 1024; i++){
         pre_result[i] = -1;
@@ -54,9 +52,9 @@ int* to_any(int dec_value, int cs) { // TODO : <-- error in this function!
     int j = 0;
 
     while (temp >= cs){
-
+        //std::cout << temp << " div =" << temp / cs << " ost =" << temp % cs << std::endl;
         pre_result[1024 - (j + 1)] = temp % cs;
-        temp = (int)(round((double)temp / (double)cs));
+        temp = temp / cs;
         j++;
     }
     if (temp > 0){
