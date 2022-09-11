@@ -1,7 +1,8 @@
 // lesson 4
 #include <iostream>
 #include <cmath>
-// TODO : Check alg.!!!
+
+// TODO : НЕДОДЕЛАНО !
 
 static double a[3][4];
 static double b[5][2];
@@ -63,12 +64,11 @@ int main(){
 
     for (int y = 0; y < 3; y++ ){
         for (int x = 0; x < 2; x++ ){
-            std::cout << c[y][x] << " ";
+            std::cout << c[y][x] << "\t";
         }
         std::cout << std::endl;
 
     }
 
 
-    std::cout << b[3][1] << std::endl;
 }
