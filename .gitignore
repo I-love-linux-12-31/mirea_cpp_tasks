@@ -1,4 +1,4 @@
 *.o
 .idea
-./*/*..txt
+*.txt
 __test.cpp
