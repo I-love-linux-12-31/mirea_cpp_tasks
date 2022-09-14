@@ -11,6 +11,7 @@ int main() {
     std::ofstream out_file("text.txt");
     if (!out_file){
         std::cout << "File creation error !" << std::endl;
+        exit(1);
     }
     out_file << "First line" << std::endl;
     out_file << "Second line" << std::endl;
