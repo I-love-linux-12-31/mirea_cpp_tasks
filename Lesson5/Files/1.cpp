@@ -66,10 +66,7 @@ int main () {
                 }
                 else {
 
-                    if(std::sscanf(temp_str.c_str(), "%f", &float_buffer) == 1){
-
-                    }
-
+                    std::sscanf(temp_str.c_str(), "%f", &float_buffer);
                     switch (mode) {
                         case 1:
                             prices.push_back(float_buffer);
