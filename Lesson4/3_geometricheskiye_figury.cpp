@@ -4,8 +4,10 @@
 #include <cmath>
 
 
-double get_triangle_s (double a, double h) {
-    return (a * h) / 2.0;
+double get_triangle_s (double a, double b, double c) {
+    double p = (a + b + c) / 2;
+
+    return sqrt(p * (p - a) * (p - b) * (p - c));
 }
 double get_circle_s (double r) {
     return 3.14 * pow(r, 2);
@@ -25,31 +27,52 @@ double read_data () {
     return temp;
 }
 
+int get_mode () {
+    int temp;
+    std::cin >> temp;
+    while (temp < 0 or temp > 2 ){
+        std::cout << "Должно быть 0, 1 или 2. Введите новое: ";
+        std::cin >> temp;
+    }
+    return temp;
+}
+
 int main() {
-    double a, b, h, r;
-    std::cout << "== Треугольник ==" << std::endl;
-    std::cout << "Введите сторону: ";
-    //std::cin >> a;
-    a = read_data();
-    std::cout << "Введите высоту, опущенную к данной стороне: ";
-    //std::cin >> h;
-    h = read_data();
-    std::cout << "S = " << get_triangle_s(a, h) << std::endl;
-
-    std::cout << "== Прямоугольник ==" << std::endl;
-    std::cout << "Введите сторону a: ";
-    //std::cin >> a;
-    a = read_data();
-    std::cout << "Введите сторону b: ";
-    //std::cin >> b;
-    b = read_data();
-    std::cout << "S = " << get_box_s(a, b) << std::endl;
-
-    std::cout << "== Круг ==" << std::endl;
-    std::cout << "Введите радиус: ";
-    //std::cin >> r;
-    r = read_data();
-    std::cout << "S = " << get_circle_s(r) << std::endl;
+    double a, b, c, h, r;
+    std::cout << "Площадь чего вы хотите посчитать?" << std::endl;
+    std::cout << "0) Треугольника." << std::endl;
+    std::cout << "1) Прямоугольника." << std::endl;
+    std::cout << "2) Круга." << std::endl;
+    switch (get_mode()) {
+        case 0:
+            std::cout << "== Треугольник ==" << std::endl;
+            std::cout << "Введите сторонуc a: ";
+            a = read_data();
+            std::cout << "Введите сторонуc b: ";
+            b = read_data();
+            std::cout << "Введите сторонуc c: ";
+            c = read_data();
+            //h = read_data();
+            std::cout << "S = " << get_triangle_s(a, b, c) << std::endl;
+            break;
+        case 1:
+            std::cout << "== Прямоугольник ==" << std::endl;
+            std::cout << "Введите сторону a: ";
+            //std::cin >> a;
+            a = read_data();
+            std::cout << "Введите сторону b: ";
+            //std::cin >> b;
+            b = read_data();
+            std::cout << "S = " << get_box_s(a, b) << std::endl;
+            break;
+        case 2:
+            std::cout << "== Круг ==" << std::endl;
+            std::cout << "Введите радиус: ";
+            //std::cin >> r;
+            r = read_data();
+            std::cout << "S = " << get_circle_s(r) << std::endl;
+            break;
+    }
 
     return 0;
 }
