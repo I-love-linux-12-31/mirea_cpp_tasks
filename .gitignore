@@ -2,3 +2,4 @@
 .idea
 *.txt
 __test.cpp
+main.cpp

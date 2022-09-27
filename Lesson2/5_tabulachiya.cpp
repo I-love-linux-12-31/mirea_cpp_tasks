@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <cmath>
-#include <iomanip>
+
+#include "../useful_functions.h++"
 
 double func(double x){
     return (pow(x, 2) - (2 * x) + 2) / (x - 1);
@@ -14,11 +15,12 @@ int main() {
 
     while (j <= 4.0){
         if (j != 1) {
-            //std::cout << std::setprecision(3) << std::setiosflags(std::ios::left) << std::setw(5) <<  std::setfill('0') << (float)j << "\t\t" << func(j) << std::endl;
-            printf("%10f    %f\n", j, func(j));
+
+            double val = func(j);
+            std::cout << get_formatted_double_short(j) << "    " << get_formatted_double_middle(val) << std::endl;
         }
         else {
-            printf("%10f", j);
+            std::cout << get_formatted_double_short(j);
             std::cout << "    " << "\033[31mНе существует !\033[32m" << std::endl;
         }
         j = j + 0.5;
@@ -26,4 +28,3 @@ int main() {
 
     return 0;
 }
-
