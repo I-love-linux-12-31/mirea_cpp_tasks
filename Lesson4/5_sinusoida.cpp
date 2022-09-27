@@ -28,7 +28,14 @@ int main(){
 
     for(int y=0; y<16; y++){
         for(int x=0; x<128; x++){
+            if (x == 0){
+                std::cout << "\e[42m\e[1m";
+            }
             std::cout << output[y][x];
+            if (x == 127){
+                std::cout << "\e[0m";
+            }
+
         }
         std::cout << std::endl;
     }

@@ -12,16 +12,20 @@ int main() {
     if (!out_file){
         std::cout << "File creation error !" << std::endl;
     }
-//    out_file << "First line" << std::endl;
-//    out_file << "Second line" << std::endl;
-//    out_file << "1" << std::endl;
-//    out_file << "3.3" << std::endl;
-//    out_file << "-3.14" << std::endl;
-//    out_file << "Конец файла!" << std::endl;
-   for (int i = 0;i < 10;i++){
-       out_file << "1" << std::endl;
+    std::cout << "Введите 10 чисел в консоль. (Каждое с новой строки.) Они будут записаны в файл. :";
+    std::string _buffer;
+    float _float_buff;
+    for (int i = 0;i < 10;i++){
+        std::cin >> _buffer;
+        while (sscanf(_buffer.c_str(), "%f", &_float_buff) != 1){
+            std::cout << "Не корректный ввод! Введите число :" << std::endl;
+            std::cin >> _buffer;
+        }
 
-   }
+
+        out_file << _buffer << std::endl;
+
+    }
 
     out_file.close();
 
