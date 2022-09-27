@@ -11,7 +11,7 @@ double func(double x){
 
 int main() {
     double j = -4;
-    std::cout << "   x\t\ty\033[32m" << std::endl;
+    std::cout << "   x     y\033[32m" << std::endl;
 
     while (j <= 4.0){
         if (j != 1) {

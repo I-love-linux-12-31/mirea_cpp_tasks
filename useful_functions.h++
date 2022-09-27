@@ -22,7 +22,7 @@ std::string get_formatted_double_middle(double &value){
     unsigned short int j = 0;
     for (unsigned int i = 0; i < buffer.length(); i++){
         if (after_point){
-            if (j < 4){
+            if (j < 3){
                 result += buffer[i];
                 j++;
             }
