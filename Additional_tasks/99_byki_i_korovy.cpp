@@ -60,6 +60,7 @@ int get_correct_int_from_user(){
 
 int main(){
     int value = get_correct_random();
+    std::cout << value << std::endl;
     std::string str_value = std::to_string(value);
     int int_buff = 0;
 
