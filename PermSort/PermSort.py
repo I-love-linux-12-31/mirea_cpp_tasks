@@ -23,7 +23,7 @@ def is_sorted(data: list) -> bool:
 
 
 def main():
-    data = [3, 2, 5, -5, 8, 9, -11]
+    data = [3, 2, 5, -5, 8, 9, -11, 24, -37, 0]
     data_sorted = perm_sort([], data)
     print(*data_sorted)
 

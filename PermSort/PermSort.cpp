@@ -60,7 +60,7 @@ std::vector<int> PermSort (std::vector<int> &data, std::vector<int> variants){
 
 int main(){
 
-    std::vector<int> data = {3, 2, 5, -5, 8, 9, -11};
+    std::vector<int> data = {3, 2, 5, -5, 8, 9, -11, 24, -37, 0};
     std::vector<int> sorted = PermSort(ZERO_DATA, data);
     print_vector(sorted);
 
