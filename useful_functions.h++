@@ -75,6 +75,19 @@ std::string get_formatted_double_short(double &value){
     return result;
 }
 
+void str_ljust (std::string &str, int target_size){
+    while (str.size() < target_size){
+        str += " ";
+    }
+}
+std::string const_str_ljust (const std::string &str, int target_length){
+    std::string result = str;
+    while (result.length() < target_length){
+        result += "0";
+    }
+    return result;
+}
+
 
 
 
