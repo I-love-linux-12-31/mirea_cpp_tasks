@@ -77,7 +77,7 @@ int* to_any(int dec_value, int cs) {
 
 int get_index(char a) {
     for (int i = 0; i < 36; i++){
-        if (alphabet[i] == a){
+        if (alphabet[i] == std::toupper(a)){
             return i;
         }
     }
