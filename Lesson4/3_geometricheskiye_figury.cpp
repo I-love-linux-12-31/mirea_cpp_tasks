@@ -29,6 +29,7 @@ double read_data () {
 
 int get_mode () {
     int temp;
+    std::cout << "\033[32m\033[1m ->\033[0m";
     std::cin >> temp;
     while (temp < 0 or temp > 2 ){
         std::cout << "Должно быть 0, 1 или 2. Введите новое: ";
