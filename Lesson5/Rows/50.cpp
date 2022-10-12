@@ -101,7 +101,7 @@ int main (){
 
     unsigned int c = 0;
     for (unsigned int i = 0; i < stats.size();i++){
-        out_file << c << ";" << COUNTRIES[stats[i][5]]  <<  ";";
+        out_file << c + 1 << ";" << COUNTRIES[stats[i][5]]  <<  ";";
         for (unsigned int j = 0; j < stats[0].size() - 1; j++){
             if (j != stats[0].size() - 2)
                 out_file << stats[i][j] << ";";
