@@ -125,12 +125,12 @@ void* start_aplay_worker(void* arg){
 
 void start_aplay_thread(){
     std::vector<std::vector<double>> points_new;
-    for (double x = 10.0; x < 20.0; x += 0.05){
+    for (double x = 10.0; x < 15.0; x += 0.05){
         points_new.push_back({x, sound_sin(x, mode_a, mode_b)});
     }
     for (const auto& point : points_new)
         points.push_back(point);
-    points.push_back({20.0, 0.0});
+    points.push_back({15.0, 0.0});
 
     pthread_t tid; /* идентификатор потока */
     pthread_attr_t attr; /* отрибуты потока */
