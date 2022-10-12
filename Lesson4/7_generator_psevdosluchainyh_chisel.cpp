@@ -1,4 +1,7 @@
+
 #include <iostream>
+
+#include "../cli_data_reader.h++"
 
 double last_s = 0;
 int8_t mode = 1;
@@ -25,6 +28,15 @@ double get_random(){
 }
 
 int main () {
+    std::cout << "Вы хотите начать с больших чисел y/n :" << std::endl;
+    bool user_mode_1 = get_bool_from_user();
+    if (user_mode_1){
+        mode = 2;
+        m = 25173;
+        b = 13849;
+        c = 65537;
+    }
+
     for (int i = 0; i < 16; i++) {
         std::cout << get_random() << std::endl;
     }
