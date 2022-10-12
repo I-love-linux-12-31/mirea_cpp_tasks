@@ -17,6 +17,27 @@ double get_box_s (double a, double b) {
 }
 
 
+bool is_triangle (double a, double b, double c) {
+// TODO !!!
+    double max, min, middle;
+    double t;
+    double temp[3] = {a, b, c};
+    for (int i = 0; i < 2; i++){
+        for (int j = 0; j < 2; j++){
+            if (temp[j + 1] > temp[j])
+            {
+                t = temp[j];
+                temp[j] = temp[j + 1];
+                temp[j + 1] = t;
+            }
+        }
+    }
+    std::cout <<
+
+    return false;
+}
+
+
 double read_data () {
     double temp;
     std::cin >> temp;
