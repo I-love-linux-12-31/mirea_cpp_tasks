@@ -18,23 +18,7 @@ double get_box_s (double a, double b) {
 
 
 bool is_triangle (double a, double b, double c) {
-// TODO !!!
-    double max, min, middle;
-    double t;
-    double temp[3] = {a, b, c};
-    for (int i = 0; i < 2; i++){
-        for (int j = 0; j < 2; j++){
-            if (temp[j + 1] > temp[j])
-            {
-                t = temp[j];
-                temp[j] = temp[j + 1];
-                temp[j + 1] = t;
-            }
-        }
-    }
-    std::cout <<
-
-    return false;
+    return (a + b + c) * (b + c - a) * (c + a - b) > 0;
 }
 
 
@@ -75,6 +59,10 @@ int main() {
             std::cout << "Введите сторонуc c: ";
             c = read_data();
             //h = read_data();
+            if (!is_triangle(a, b, c)){
+                std::cout << "Треугольник с данными сторонами не существует !" << std::endl;
+                exit(0);
+            }
             std::cout << "S = " << get_triangle_s(a, b, c) << std::endl;
             break;
         case 1:
