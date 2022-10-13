@@ -42,9 +42,11 @@ std::vector<int>* get_data_from_file(){
     }
     while (file_in){
         getline(file_in, buffer);
+        if (buffer == "")
+            break;
         sscanf(buffer.c_str(), "%d", &temp);
         data.push_back(temp);
-        std::cout << temp << std::endl;
+        std::cout << "::" << temp << std::endl;
     }
 
     return &data;
@@ -52,9 +54,9 @@ std::vector<int>* get_data_from_file(){
 
 std::vector<int>* get_target_data (std::vector<int>* data) {
     std::vector<std::vector<int>> results;
-    for (unsigned int start_index = 0; start_index < *data->size(); start_index++){
-        for (unsigned int end_index = *data->size() - 1; end_index > 0; end_index--){
-
+    for (unsigned int start_index = 0; start_index < data->size(); start_index++){
+        for (int end_index = data->size() - 1; end_index > -1; end_index--){
+            std::cout << start_index << " | " << end_index << std::endl;
 
         }
 
@@ -65,5 +67,5 @@ std::vector<int>* get_target_data (std::vector<int>* data) {
 int main () {
     create_file_with_data();
     std::vector<int>* data = get_data_from_file();
-
+    get_target_data(data);
 }
