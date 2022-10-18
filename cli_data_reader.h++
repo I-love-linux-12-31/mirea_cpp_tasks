@@ -42,7 +42,7 @@ float get_int_more_0_from_user(){
     int result;
     std::string buffer;
     getline(std::cin, buffer);
-    while(sscanf(buffer.c_str(), "%d", &result) != 1 or result < 0){
+    while(sscanf(buffer.c_str(), "%d", &result) != 1 or result <= 0){
         std::cout << "Не корректный ввод! Должно быть целое число > 0, например 16 !" << std::endl;
         std::cout << "Введите число :";
 
