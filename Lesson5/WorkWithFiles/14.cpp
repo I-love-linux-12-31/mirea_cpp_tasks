@@ -112,6 +112,10 @@ int main () {
     for (int i : *result){
         std::cout << i << " ";
     }
+    std::cout << "Весь файл:" << std::endl;
+    for (int i : *data){
+        std::cout << i << std::endl;
+    }
     std::cout << std::endl;
 
 }

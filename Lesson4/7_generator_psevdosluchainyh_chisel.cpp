@@ -10,7 +10,7 @@ int b = 3;
 int c = 64;
 double get_random(){
     double result;
-    result = (double )(m * last_s + b) / c;
+    result = ((double )(m * last_s + b)) / (double)c;
     last_s = result;
     if (mode == 1) {
         mode = 2;
