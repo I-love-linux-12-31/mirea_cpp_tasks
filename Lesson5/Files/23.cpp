@@ -16,7 +16,7 @@ int main () {
         data[en_sogls[i]] = 1;
     }
 
-    std::ifstream file_in("text_A");
+    std::ifstream file_in("text_X");
     if (!file_in){
         std::cout << "File read error !" << std::endl;
         exit(1);

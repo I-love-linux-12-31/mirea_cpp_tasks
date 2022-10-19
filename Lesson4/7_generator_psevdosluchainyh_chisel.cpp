@@ -3,14 +3,14 @@
 
 #include "../cli_data_reader.h++"
 
-double last_s = 0;
+int last_s = 0;
 int8_t mode = 1;
 int m = 37;
 int b = 3;
 int c = 64;
-double get_random(){
+int get_random(){
     double result;
-    result = ((double )(m * last_s + b)) / (double)c;
+    result = ((m * last_s + b)) % c;
     last_s = result;
     if (mode == 1) {
         mode = 2;
@@ -37,7 +37,7 @@ int main () {
         c = 65537;
     }
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 5; i++) {
         std::cout << get_random() << std::endl;
     }
     return 0;
