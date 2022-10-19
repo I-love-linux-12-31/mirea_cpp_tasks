@@ -114,7 +114,7 @@ int main () {
     }
     std::cout << "Числа, повторяющиеся больше всего, были отсортированы сохранены в файл: " << FILE_C << std::endl;
     save_data_to_file(result, FILE_C);
-    std::cout << "\033[34mВывести содержимое файлов? [y/n] \033[0m"<< std::endl;
+    std::cout << "\033[34mВывести содержимое файлов в консоль? [y/n] \033[0m"<< std::endl;
     bool do_output = get_bool_from_user();
     if (do_output){
         std::cout << "Содержимое файла: " << FILE_A << std::endl;
@@ -126,5 +126,12 @@ int main () {
         std::cout << "\033[0m" << std::endl;
     }
 
+    std::cout << "\033[34mОтправить файлы на печать? [y/n] \033[0m"<< std::endl;
+    do_output = get_bool_from_user();
+    if (do_output) {
+        system("./13_send_to_printer.sh");
+        std::cout << "\033[32mФайлы были отправлены на принтер по-умолчанию !\033[0m"<< std::endl;
+
+    }
 
 }
