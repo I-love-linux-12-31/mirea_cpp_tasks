@@ -7,6 +7,8 @@
 
 
 #include <string>
+#include <iostream>
+#include <fstream>
 #include <cmath>
 
 std::string get_formatted_double_middle(double &value){
@@ -89,7 +91,20 @@ std::string const_str_ljust (const std::string &str, int target_length){
 }
 
 
+void print_file(std::string filename){
+    std::string buffer;
 
+    std::ifstream file_in(filename);
+    if (!file_in){
+        std::cout << "File read error !" << std::endl;
+        exit(1);
+    }
+
+    while (file_in){
+        getline(file_in, buffer);
+        std::cout << buffer << std::endl;
+    }
+}
 
 
 #endif //CPP_1_COURSE_PART1_USEFUL_FUNCTIONS_HPP
