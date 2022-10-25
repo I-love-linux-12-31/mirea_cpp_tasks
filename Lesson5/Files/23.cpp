@@ -12,31 +12,28 @@ int main () {
     std::string en_sogls = "BCDFGHJKLMNPQRSTVWXYZ";
     std::string en_glasnye = "AEIOUY";
 
-    for (unsigned int i = 0 ; i < en_sogls.length() ; i++){
-        data[en_sogls[i]] = 1;
-    }
-
-    std::ifstream file_in("text_X");
+    for (char a : en_sogls)
+        data[a] = 0;
+    std::string filename;
+    std::cout << "Введите название файла для которого будет выполнен поиск самых часто встречающихся согласных:" << std::endl;
+    getline(std::cin, filename);
+    std::ifstream file_in(filename);
     if (!file_in){
         std::cout << "File read error !" << std::endl;
         exit(1);
     }
     std::string buffer;
     char char_buffer;
-    while (file_in) {
-        getline(file_in, buffer);
+    while (getline(file_in, buffer)) {
         for (unsigned int i = 0; i < buffer.length(); i++){
             char_buffer = buffer[i];
             if (std::islower(char_buffer)){
                 char_buffer = std::toupper(char_buffer);
             }
             if (data.find(char_buffer) != data.end()) { // Проверка валидности ключа.
-                //std::cout << "adding for " << char_buffer << std::endl;
                 data[char_buffer] += 1;
             }
             else {
-                //std::cout << "Create for " << char_buffer << std::endl;
-                //data[char_buffer] = 1;
                 // Этот символ считать не нужно !
             }
 
@@ -47,6 +44,7 @@ int main () {
 
     char max_char_key;
     int max_char_count;
+
     for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
         // std::cout << iterator->first << " : " << iterator->second << std::endl;
         if (iterator->second > max_char_count){
@@ -54,7 +52,26 @@ int main () {
             max_char_key = iterator->first;
         }
     }
-    std::cout << "Самый часто встречающийся согласный: " << max_char_key <<". Он встретился " << max_char_count << " раз(а)." << std::endl;
+
+    if (max_char_count < 1)
+    {
+        std::cout << "Похоже в файле нет согласных" << std::endl;
+        return 0;
+    }
+
+    int targets_count = 0;
+    std::string target_sogls = "";
+    for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
+        if (iterator->second == max_char_count){
+            targets_count += 1;
+            target_sogls += iterator->first;
+            target_sogls += ' ';
+        }
+    }
+    if (targets_count == 1)
+        std::cout << "Самый часто встречающийся согласный: " << max_char_key <<". Он встретился " << max_char_count << " раз(а)." << std::endl;
+    else
+        std::cout << "Самые часто встречающиеся согласные: " << target_sogls <<". Они встретились " << max_char_count << " раз(а)." << std::endl;
 
 
 

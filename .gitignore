@@ -5,3 +5,4 @@ __test.cpp
 main.cpp
 venv
 Lib
+cmake-build-debug
