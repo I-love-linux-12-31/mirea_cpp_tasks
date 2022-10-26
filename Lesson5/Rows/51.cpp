@@ -32,6 +32,7 @@ int main () {
         for (unsigned int counter = 0; counter < str_buff.length(); counter++){
             if (str_buff[counter] == ' ' or str_buff[counter] == '\t'){
                 sscanf(buff.c_str(), "%f", &data[i][j]);
+                //std::cout << "Buffer = " << buff << " added as :" << data[i][j] << std::endl;
                 buff = "";
                 j++;
             }
@@ -41,16 +42,18 @@ int main () {
         }
         if (buff != ""){
             sscanf(buff.c_str(), "%f", &data[i][j]);
+            //std::cout << "Buffer = " << buff << " added as :" << data[i][j] << std::endl;
         }
 
 
     }
-    long int sum = 0;
+    double sum = 0;
     for (unsigned int i = 0; i < rows; i++){
         for (unsigned int j = 0; j < cols; j++){
-            if (j % 2 == 1){ // инверсия тк начинаем с 0 а пользователей с 1
+                        if (j % 2 == 1){ // инверсия тк начинаем с 0 а пользователей с 1
                 sum += data[i][j];
             }
+
             // std::cout << data[i][j] << " ";
 
         }
