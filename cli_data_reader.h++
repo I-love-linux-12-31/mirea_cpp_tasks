@@ -38,7 +38,7 @@ bool get_bool_from_user(){
     return get_bool_from_user();
 }
 
-float get_int_more_0_from_user(){
+int get_int_more_0_from_user(){
     int result;
     std::string buffer;
     getline(std::cin, buffer);
