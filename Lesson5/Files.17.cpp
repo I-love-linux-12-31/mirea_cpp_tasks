@@ -9,7 +9,7 @@
 #include <fstream>
 #include <vector>
 
-std::vector<float> data;
+std::vector<std::string> data;
 
 
 int get_val_for_sort(std::string line){
@@ -32,7 +32,7 @@ int get_val_for_sort(std::string line){
 void sort_data(){
     for (int i = 0 ; i < data.size() + 7; i++){
         for (int j = 0; j < data.size() - 1; j++){
-            if (get_val_for_sort(std::to_string(data[j + 1])) > get_val_for_sort(std::to_string(data[j])))
+            if (get_val_for_sort((data[j + 1])) > get_val_for_sort((data[j])))
                 std::swap(data[j], data[j + 1]);
         }
     }
@@ -43,10 +43,12 @@ int main(){
     int n = get_int_more_0_from_user();
     std::ofstream file_out1("17_out_1.txt");
     std::ofstream file_out2("17_out_2.txt");
+
+    std::string str_buffer;
     for (int i = 0 ; i < n; i++){
         std::cout << "->";
-        data.push_back(get_float_from_user()); // todo: !!!
-        //fixme: 0.33 -> 0.3299999999999999 !!!!!!!
+        getline(std::cin, str_buffer);
+        data.push_back(str_buffer);
         file_out1 << data[data.size() - 1] << std::endl;
     }
     std::cout << "Эти числа записаны в файл 17_out_1.txt." << std::endl;
