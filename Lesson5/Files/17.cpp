@@ -1,10 +1,12 @@
 //
 // Created by yaroslav_admin on 19.10.22.
 //
+// Первый разднл !
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
+#include "../../cli_data_reader.h++"
 
 std::vector<std::string> data;
 bool is_punctuation(char a){
@@ -79,10 +81,26 @@ void sort_data(){
 }
 
 int main (){
-    load_data("text_A");
+    std::cout << "Данная программа читает слова из файла, сортирует их." << std::endl;
+
+    std::string filename;
+    std::cout << "Введите имя входного файла:" << std::endl;
+    getline(std::cin, filename);
+    load_data(filename);
     sort_data();
+
+    std::cout << "Записать отсортерованные слова в файл text_17_out.txt? [y/n]" << std::endl;
+    bool do_file_out = get_bool_from_user();
+    std::ofstream out_file;
+    if (do_file_out)
+        out_file.open("text_17_out.txt");
+
     for (auto w : data){
+        if (do_file_out)
+            out_file << w << std::endl;
         std::cout << w << std::endl;
     }
+    if (do_file_out)
+        out_file.close();
     return 0;
 }
