@@ -1,7 +1,7 @@
 //
 // Created by yaroslav_admin on 13.10.22.
 //
-#include "../../cli_data_reader.h++"
+#include "cli_data_reader.h++"
 
 #include <iostream>
 #include <fstream>

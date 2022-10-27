@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include "../../cli_data_reader.h++"
+#include "cli_data_reader.h++"
 
 std::vector<std::string> data;
 bool is_punctuation(char a){
