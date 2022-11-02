@@ -38,8 +38,8 @@ int main() {
         // delta = ((double)factorial(k + 2)) / (pow((int)k + 1, 2) * pow(x, 2.0 * (double)k + 2.0));
         // delta = (((double)factorial(k)) * (k + 2)) / (pow((int)k + 1, 2) * pow(x, 2.0 * (double)k + 2.0));
         delta = (((double)factorial(k)) * (double)(k + 2)) / ((int)k + 1 * pow(x, 2.0 * (double)k + 2.0));
-        if (delta != 0.0)
-            std::cout << delta << std::endl;
+//        if (delta != 0.0)
+//            std::cout << delta << std::endl;
         result += delta;
     }
 

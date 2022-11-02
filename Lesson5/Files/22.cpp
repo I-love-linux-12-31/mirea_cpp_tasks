@@ -13,7 +13,7 @@ int main () {
     std::string en_glasnye = "AEIOUY";
 
     for (unsigned int i = 0 ; i < en_glasnye.length() ; i++){
-        data[en_glasnye[i]] = 1;
+        data[en_glasnye[i]] = 0;
     }
 
     std::ifstream file_in("text_A");

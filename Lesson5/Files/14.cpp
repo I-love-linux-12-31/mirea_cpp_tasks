@@ -1,7 +1,7 @@
 //
 // Created by yaroslav_admin on 13.10.22.
 //
-#include "cli_data_reader.h++"
+#include "../../cli_data_reader.h++"
 
 #include <iostream>
 #include <fstream>
@@ -17,7 +17,7 @@ void create_file_with_data(){
 
     int temp;
     int n;
-    std::cout << "\033[1m\033[32mСколько чисел вы хотите записать в файл?" << std::endl;
+    std::cout << "\033[1m\033[32mСколько чисел вы хотите записать в файл (text.txt)?" << std::endl;
     n = get_int_more_0_from_user();
     for (unsigned int i = 0; i < n; i++){
         std::cout << "\033[1m\033[32m ->";

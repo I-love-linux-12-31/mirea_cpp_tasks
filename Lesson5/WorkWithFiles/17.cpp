@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include "cli_data_reader.h++"
+#include "../../cli_data_reader.h++"
 
 std::vector<std::string> data;
 bool is_punctuation(char a){
@@ -72,8 +72,13 @@ bool str_a_is_more_than_b (std::string a, std::string b){
 void sort_data(){
     for (unsigned int j = 0; j < data.size(); j++){
         for (unsigned int i = 0; i < data.size() - 1; i++){
-            if (str_a_is_more_than_b(data[i], data[i + 1]))
-                std::swap(data[i], data[i + 1]);
+            if (str_a_is_more_than_b(data[i], data[i + 1])){
+                //std::cout << "Swapping :" << data[i] << " | " << data[i + 1] << std::endl;
+                std::swap(data[i], data[i + 1]);}
+//                std::string _temp = data[i + 1];
+//                data[i + 1] = data[i];
+//                data[i] = _temp;
+
         }
     }
 
@@ -87,6 +92,7 @@ int main (){
     std::cout << "Введите имя входного файла:" << std::endl;
     getline(std::cin, filename);
     load_data(filename);
+    sort_data();
     sort_data();
 
     std::cout << "Записать отсортерованные слова в файл text_17_out.txt? [y/n]" << std::endl;
@@ -102,5 +108,6 @@ int main (){
     }
     if (do_file_out)
         out_file.close();
+    std::cout << "!!!!" <<str_a_is_more_than_b("pharetra", "a") << std::endl;
     return 0;
 }

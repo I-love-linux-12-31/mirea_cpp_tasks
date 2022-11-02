@@ -1,9 +1,9 @@
 part;block_name;task_number;path;status
 0;Алгоритм Евклида;1;./1_algoritm_evklida.cpp;passed
 1;Решето Эратосфена;1;./2_resheto_eratosfena.cpp;passed
-2;Обработка текстовых файлов;17;./WorkWithFiles/17.cpp;done, not passed
-2;Обработка текстовых файлов;23;./WorkWithFiles/23.cpp;done, not passed
-3;Ряды;17;./Rows/17.cpp;done, not passed
-3;Ряды;51;./Rows/51.cpp;done, not passed
+2;Обработка текстовых файлов;17;./WorkWithFiles/17.cpp;wtf error!, not passed
+2;Обработка текстовых файлов;23;./WorkWithFiles/23.cpp;error _My_text.txt, not passed
+3;Ряды;17;./Rows/17.cpp;+?done, not passed
+3;Ряды;51;./Rows/51.cpp;+done, not passed
 4;Файлы;17;./Files.17.cpp;done, not passed
-4;Файлы;14;./Files/14.cpp;done, not passed
+4;Файлы;14;./Files/14.cpp;+done, not passed
