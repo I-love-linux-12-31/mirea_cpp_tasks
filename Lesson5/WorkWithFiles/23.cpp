@@ -41,9 +41,13 @@ int main () {
         }
 
     }
+    std::cout << "Raw data:" << std::endl;
+//    for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
+//        std::cout << iterator->first << " : " << iterator->second << std::endl;
+//    }
 
     char max_char_key;
-    int max_char_count;
+    int max_char_count = -1;
 
     for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
         // std::cout << iterator->first << " : " << iterator->second << std::endl;

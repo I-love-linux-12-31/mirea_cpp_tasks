@@ -91,6 +91,10 @@ int main (){
     std::cout << "Введите имя входного файла:" << std::endl;
     getline(std::cin, filename);
     load_data(filename);
+    if (data.size() == 0){
+        std::cout << "В файле нет слов !" << std::endl;
+        exit(0);
+    }
     sort_data();
     sort_data();
 
