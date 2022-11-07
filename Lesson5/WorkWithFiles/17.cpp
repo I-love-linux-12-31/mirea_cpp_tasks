@@ -53,12 +53,13 @@ void load_data(std::string filename){
         for (auto s : split(buffer))
             if (!exists_in_data(s))
                 data.push_back(s);
+                //std::cout << "Pushing : " << s << std::endl;
     }
 
 }
 
 bool str_a_is_more_than_b (std::string a, std::string b){
-    for (unsigned int i; i < a.length();i++){
+    for (unsigned int i = 0; i < a.length();i++){
         if (i >= b.length())
             return true;
         if ((int)a[i] > (int)b[i])
@@ -66,6 +67,7 @@ bool str_a_is_more_than_b (std::string a, std::string b){
         if ((int)a[i] < (int)b[i])
             return false;
     }
+    return false;
 }
 
 
@@ -74,11 +76,8 @@ void sort_data(){
         for (unsigned int i = 0; i < data.size() - 1; i++){
             if (str_a_is_more_than_b(data[i], data[i + 1])){
                 //std::cout << "Swapping :" << data[i] << " | " << data[i + 1] << std::endl;
-                std::swap(data[i], data[i + 1]);}
-//                std::string _temp = data[i + 1];
-//                data[i + 1] = data[i];
-//                data[i] = _temp;
-
+                std::swap(data[i], data[i + 1]);
+            }
         }
     }
 
@@ -95,12 +94,12 @@ int main (){
     sort_data();
     sort_data();
 
-    std::cout << "Записать отсортерованные слова в файл text_17_out.txt? [y/n]" << std::endl;
+    std::cout << "Записать отсортированные слова в файл text_17_out.txt? [y/n]" << std::endl;
     bool do_file_out = get_bool_from_user();
     std::ofstream out_file;
     if (do_file_out)
         out_file.open("text_17_out.txt");
-
+    std::cout << "Отсортированные слова:" << std::endl;
     for (auto w : data){
         if (do_file_out)
             out_file << w << std::endl;
@@ -108,6 +107,5 @@ int main (){
     }
     if (do_file_out)
         out_file.close();
-    std::cout << "!!!!" <<str_a_is_more_than_b("pharetra", "a") << std::endl;
-    return 0;
+        return 0;
 }
