@@ -8,7 +8,7 @@
 
 //#include <>
 
-std::map<u_int, u_int[3]> data;
+std::map<u_int, u_int[3]> monks;
 
 // if (stats.find(i) != stats.end()) { // Проверка валидности ключа.
 
@@ -65,10 +65,38 @@ int main(){
             n += 1;
             std::cout << "Bad input !!!\n";
         }
-        std::cout << "==============" << std::endl;
-        for (auto str : split(buffer)){
-            std::cout << ">>" << str << std::endl;
-        }
+//        std::cout << "==============" << std::endl;
+//        for (u_int str : split(buffer)){
+//            std::cout << ">>" << str << std::endl;
+//        }
+        auto current_monk_data = split(buffer);
+        monks[current_monk_data[0]][0] = current_monk_data[1];
+        monks[current_monk_data[0]][1] = current_monk_data[2];
+        monks[current_monk_data[0]][2] = current_monk_data[3];
+    }
+
+
+    std::cout << "==============" << std::endl;
+    for (std::map<u_int, u_int[3]> :: iterator iterator = monks.begin(); iterator != monks.end(); iterator++) {
+        std::cout << iterator->first << " : " << iterator->second[0] << " " << iterator->second[1] << " " << iterator->second[2] << std::endl;
+    }
+    std::cout << "==============" << std::endl;
+    std::cout << "Доступные команды 1, 2:" << std::endl;
+    getline(std::cin, buffer);
+    if (buffer.empty()){
+        std::cout << "Bad input !!!\n";
+    }
+    std::cout << " You chose : " << buffer << std::endl;
+    auto command_data = split(buffer);
+    switch (command_data[0]){
+        case 1:
+
+            break;
+        case 2:
+            break;
+        default:
+            std::cout << "Неизвестная команда\n";
+            return -1;
     }
     return 0;
 }
