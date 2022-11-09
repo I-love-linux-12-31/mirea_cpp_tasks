@@ -43,7 +43,37 @@ std::vector<u_int> split(std::string &str){
 }
 
 
-
+std::vector<u_int> find_teacher_trace (u_int monk){
+    std::cout << "Searching :" << monk << std::endl;
+    std::vector<u_int> result;
+    if (monk == 1){
+        return result;
+    }
+    if (monk < 1){
+        std::cout << "WTF error !" << std::endl;
+        exit(-1);
+        return result;
+    }
+    for (u_int i = monk - 1; i > 0; i--){
+        if (monks.find(i) == monks.end()) { // Проверка валидности ключа.
+            continue;
+        }
+        for (u_int j : monks[i]){
+            if (j == monk){
+                result.push_back(i);
+            }
+        }
+    }
+    if (result.size() == 0)
+        return result;
+    if (result[result.size() - 1] == 1){
+        return result;
+    }
+    for (u_int i : find_teacher_trace(result[result.size() - 1])){
+        result.push_back(i);
+    }
+    return result;
+}
 
 
 
@@ -87,15 +117,31 @@ int main(){
         std::cout << "Bad input !!!\n";
     }
     std::cout << " You chose : " << buffer << std::endl;
-    auto command_data = split(buffer);
+    std::vector<u_int> command_data = split(buffer);
+    std::vector<u_int> monks_trace;
+
     switch (command_data[0]){
         case 1:
-
+            if (command_data[1] == '1'){
+                std::cout << "Монах - Святой Павел!" << std::endl;
+                break;
+            }
+            //std::cout << command_data[1] << "|" << (int)command_data[1] << std::endl;
+            monks_trace = find_teacher_trace(command_data[1]);
+            if (monks_trace.empty()){
+                std::cout << (int)command_data[1] << " - не монах !" << std::endl;
+                break;
+            }
+            std::cout << command_data[1] << " - монах. Уго учителя :";
+            for (auto i : monks_trace){
+                std::cout << " " << i;
+            }
+            std::cout << std::endl;
             break;
         case 2:
             break;
         default:
-            std::cout << "Неизвестная команда\n";
+            std::cout << "Неизвестная команда :" << command_data[0] <<"\n";
             return -1;
     }
     return 0;
