@@ -103,13 +103,22 @@ int main (){
     std::ofstream out_file;
     if (do_file_out)
         out_file.open("text_17_out.txt");
-    std::cout << "Отсортированные слова:" << std::endl;
-    for (auto w : data){
-        if (do_file_out)
-            out_file << w << std::endl;
-        std::cout << w << std::endl;
+
+    std::cout << "Вывести отсортированные слова на экран? [y/n]" << std::endl;
+    bool do_std_out = get_bool_from_user();
+
+    if (do_std_out) {
+        std::cout << "Отсортированные слова:" << std::endl;
+        for (auto w: data) {
+            if (do_file_out)
+                out_file << w << std::endl;
+            std::cout << w << std::endl;
+        }
     }
     if (do_file_out)
+        for (auto w: data) {
+            out_file << w << std::endl;
+        }
         out_file.close();
         return 0;
 }

@@ -44,13 +44,13 @@ std::vector<u_int> split(std::string &str){
 
 
 std::vector<u_int> find_teacher_trace (u_int monk){
-    std::cout << "Searching :" << monk << std::endl;
+    // std::cout << "Searching :" << monk << std::endl;
     std::vector<u_int> result;
     if (monk == 1){
         return result;
     }
     if (monk < 1){
-        std::cout << "WTF error !" << std::endl;
+        std::cout << "searching error monk < 1 !" << std::endl;
         exit(-1);
         return result;
     }
@@ -120,11 +120,14 @@ int main(){
     std::cout << "2) По двум монашеским номерам найти их общего ближайшего учителя." << std::endl;
     getline(std::cin, buffer);
     if (buffer.empty()){
-        std::cout << "Bad input !!!\n";
+        std::cout << "Ввод некоректен\n";
+        exit(-1);
     }
-    std::cout << " You chose : " << buffer << std::endl;
+    //std::cout << " You chose : " << buffer << std::endl;
     std::vector<u_int> command_data = split(buffer);
     std::vector<u_int> monks_trace;
+    std::vector<u_int> monks_trace2;
+    std::vector<u_int> monks_teachers;
 
     switch (command_data[0]){
         case 1:
@@ -138,14 +141,45 @@ int main(){
                 std::cout << (int)command_data[1] << " - не монах !" << std::endl;
                 break;
             }
-            std::cout << command_data[1] << " - монах. Уго учителя :";
+            std::cout << command_data[1] << " – монах, его учителя :";
             for (auto i : monks_trace){
                 std::cout << " " << i;
             }
             std::cout << std::endl;
             break;
         case 2:
-            std::cout << "\033[31mNot Implemented !!!\033[0m" <<"\n";
+            if (command_data[1] == '1' or command_data[2] == '1'){
+                std::cout << "У Святого Павла нет учителя !" << std::endl;
+                break;
+            }
+            monks_trace = find_teacher_trace(command_data[1]);
+            if (monks_trace.empty()){
+                std::cout << (int)command_data[1] << " - не монах !" << std::endl;
+                break;
+            }
+            monks_trace2 = find_teacher_trace(command_data[2]);
+            if (monks_trace2.empty()){
+                std::cout << (int)command_data[2] << " - не монах !" << std::endl;
+                break;
+            }
+
+            for (u_int i: monks_trace){
+                for (u_int j : monks_trace2){
+                    if (i == j){
+                        //34 и 41 – оба монахи, и их общий учитель 13
+                        std::cout << command_data[1] << " и " << command_data[2] <<
+                        " – оба монахи, и их общий учитель " << i << std::endl;
+                        exit(0);
+                    }
+                }
+            }
+            std::cout << command_data[1] << " и " << command_data[2] <<
+                      " – оба монахи, и их общий учитель Святой Павел (1)"<< std::endl;
+//            std::cout << command_data[1] << " - монах. Уго учителя :";
+//            for (auto i : monks_trace){
+//                std::cout << " " << i;
+//            }
+//            std::cout << std::endl;
             break;
         default:
             std::cout << "Неизвестная команда :" << command_data[0] <<"\n";
