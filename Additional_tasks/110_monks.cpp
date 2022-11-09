@@ -70,6 +70,9 @@ std::vector<u_int> find_teacher_trace (u_int monk){
         return result;
     }
     for (u_int i : find_teacher_trace(result[result.size() - 1])){
+        if (i == 1){
+            continue;
+        }
         result.push_back(i);
     }
     return result;
@@ -106,12 +109,15 @@ int main(){
     }
 
 
-    std::cout << "==============" << std::endl;
-    for (std::map<u_int, u_int[3]> :: iterator iterator = monks.begin(); iterator != monks.end(); iterator++) {
-        std::cout << iterator->first << " : " << iterator->second[0] << " " << iterator->second[1] << " " << iterator->second[2] << std::endl;
-    }
-    std::cout << "==============" << std::endl;
+//    std::cout << "==============" << std::endl;
+//    for (std::map<u_int, u_int[3]> :: iterator iterator = monks.begin(); iterator != monks.end(); iterator++) {
+//        std::cout << iterator->first << " : " << iterator->second[0] << " " << iterator->second[1] << " " << iterator->second[2] << std::endl;
+//    }
+//    std::cout << "==============" << std::endl;
     std::cout << "Доступные команды 1, 2:" << std::endl;
+    std::cout << "1) По номеру монаха узнать, был ли такой монах и если был, то кто были его учитель,\n"
+                 "учитель его учителя и т.д. до самого Святого Павла" << std::endl;
+    std::cout << "2) По двум монашеским номерам найти их общего ближайшего учителя." << std::endl;
     getline(std::cin, buffer);
     if (buffer.empty()){
         std::cout << "Bad input !!!\n";
@@ -139,6 +145,7 @@ int main(){
             std::cout << std::endl;
             break;
         case 2:
+            std::cout << "\033[31mNot Implemented !!!\033[0m" <<"\n";
             break;
         default:
             std::cout << "Неизвестная команда :" << command_data[0] <<"\n";
