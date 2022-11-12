@@ -41,7 +41,7 @@ int main () {
         }
 
     }
-    std::cout << "Raw data:" << std::endl;
+//    std::cout << "Raw data:" << std::endl;
 //    for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
 //        std::cout << iterator->first << " : " << iterator->second << std::endl;
 //    }
