@@ -1,5 +1,4 @@
-Lesson 5:
-    Свой номер и МАКС - свой номер(17)
+setlocale(LC_ALL, "en_US.utf8");
 
 ==== На сдачу (6 tasks): =====
 Lesson 5:
