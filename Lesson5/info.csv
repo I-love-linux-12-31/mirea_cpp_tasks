@@ -5,5 +5,5 @@ part;block_name;task_number;path;status
 2;Обработка текстовых файлов;23;./WorkWithFiles/23.cpp;passed
 3;Ряды;17;./Rows/17.cpp;passed
 3;Ряды;51;./Rows/51.cpp;passed
-4;Файлы;17;./Files.17.cpp;passed
-4;Файлы;14;./Files/14.cpp;passed
+4;Файлы;17;./Files.17.cpp;?
+4;Файлы;14;./Files/14.cpp;?
