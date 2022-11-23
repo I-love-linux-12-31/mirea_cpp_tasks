@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-//#include <>
+#include "../cli_data_reader.h++"
 
 std::map<u_int, u_int[3]> monks;
 
@@ -29,14 +29,21 @@ std::vector<u_int> split(std::string &str){
         }
         else {
             if (!buffer.empty())
-                sscanf(buffer.c_str(), "%d", &int_buffer);
+                if (sscanf(buffer.c_str(), "%d", &int_buffer) == 0){
+                    std::cout << "Введено не число !\n";
+                    exit(-1);
+                }
                 result.push_back((u_int)int_buffer);
             buffer.clear();
         }
     }
     if (!buffer.empty()) {
         //result.push_back(buffer);
-        sscanf(buffer.c_str(), "%d", &int_buffer);
+        if (sscanf(buffer.c_str(), "%d", &int_buffer) == 0){
+            std::cout << "Введено не число !\n";
+            exit(-1);
+        }
+
         result.push_back((u_int)int_buffer);
     }
     return result;
@@ -50,7 +57,7 @@ std::vector<u_int> find_teacher_trace (u_int monk){
         return result;
     }
     if (monk < 1){
-        std::cout << "searching error monk < 1 !" << std::endl;
+        std::cout << "Ввод некоректный!" << std::endl;
         exit(-1);
         return result;
     }
@@ -87,22 +94,27 @@ std::vector<u_int> find_teacher_trace (u_int monk){
 int main(){
     int n = 0;
     std::cout << "Сколько строк с информацией о монахах вы хотите ввести?" << std::endl;
-    std::cin >> n;
+    //std::cin >> n
+    n = get_int_more_0_from_user();
 
     std::string buffer;
-    getline(std::cin, buffer); // bugfix
+    // getline(std::cin, buffer); // bugfix
     for (u_int i = 0; i < n; i++){
         std::cout << "$ ";
         getline(std::cin, buffer);
         if (buffer.empty()){
             n += 1;
-            std::cout << "Bad input !!!\n";
+            std::cout << "Ввод некоректный!\n";
         }
 //        std::cout << "==============" << std::endl;
 //        for (u_int str : split(buffer)){
 //            std::cout << ">>" << str << std::endl;
 //        }
         auto current_monk_data = split(buffer);
+        if (current_monk_data.size() != 4){
+            std::cout << "Ввод некоректный!\n";
+            exit(-1);
+        }
         monks[current_monk_data[0]][0] = current_monk_data[1];
         monks[current_monk_data[0]][1] = current_monk_data[2];
         monks[current_monk_data[0]][2] = current_monk_data[3];

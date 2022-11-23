@@ -4,21 +4,6 @@
 #include "../cli_data_reader.h++"
 
 std::vector<std::vector<int>> get_variants(std::vector<std::vector<int>> data, std::vector<int> variants, int level){
-//    std::cout << "Called with " << data.size() << " " << variants.size() << " Recursion :" << level << std::endl;
-//    for (auto line : data){
-//        for (int i : line){
-//            std::cout << i << " ";
-//        }
-//        std::cout << std::endl;
-//    }
-//    if (data.empty())
-//        std::cout << "EMPTY" << std::endl;
-//    std::cout << "---------------" << std::endl;
-//    for (int i : variants){
-//        std::cout << i << " ";
-//    }
-//    std::cout << std::endl;
-//    std::cout << "===============" << std::endl;
 
     std::vector<std::vector<int>> result;
     std::vector<int> variants_temp;
@@ -30,11 +15,7 @@ std::vector<std::vector<int>> get_variants(std::vector<std::vector<int>> data, s
         int current_vr = variants_temp[v_index];
         variants_temp.erase(variants_temp.begin() + v_index);
         std::vector<std::vector<int>> data_temp;
-        //for (int vr : variants_temp){
             data_temp = data;
-//            for (auto line : data_temp){ // WTF Error?!
-//                line.push_back(current_vr);
-//            }
             for (int line_id = 0; line_id < data_temp.size(); line_id++){
                 data_temp[line_id].push_back(current_vr);
             }
@@ -79,20 +60,13 @@ int main () {
     std::cout << "Сколько шариков?" << std::endl;
     int n = get_int_more_0_from_user();
 //    std::cout << "Нашлось " << factorial(n - 1)*n << " варианта(ов)" << std::endl;
-    std::cout << "Start" << std::endl;
+//    std::cout << "Start" << std::endl;
     std::vector<int> numbers;
     for (int j = 0; j < n; j++){
         numbers.push_back(j);
     }
 
     auto res = get_variants({}, numbers, 0);
-//    for (auto line : res){
-//        std::cout << "#";
-//        for (int i : line){
-//            std::cout << i << " ";
-//        }
-//        std::cout << std::endl;
-//    }
     std::cout << "Нашлось " << get_target_combinations_count(res) << " варианта(ов) из " << res.size() << std::endl;
 
 }
