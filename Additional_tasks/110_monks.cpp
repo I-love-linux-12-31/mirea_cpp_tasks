@@ -130,6 +130,7 @@ int main(){
     std::cout << "1) По номеру монаха узнать, был ли такой монах и если был, то кто были его учитель,\n"
                  "учитель его учителя и т.д. до самого Святого Павла" << std::endl;
     std::cout << "2) По двум монашеским номерам найти их общего ближайшего учителя." << std::endl;
+    std::cout << "Вводить в формате: <номер команды> <аргумент 1> <*аргумент2>!" << std::endl;
     getline(std::cin, buffer);
     if (buffer.empty()){
         std::cout << "Ввод некоректен\n";
@@ -143,7 +144,7 @@ int main(){
 
     switch (command_data[0]){
         case 1:
-            if (command_data[1] == '1'){
+            if (command_data[1] == 1){
                 std::cout << "Монах - Святой Павел!" << std::endl;
                 break;
             }
@@ -160,7 +161,7 @@ int main(){
             std::cout << std::endl;
             break;
         case 2:
-            if (command_data[1] == '1' or command_data[2] == '1'){
+            if (command_data[1] == 1 or command_data[2] == 1){
                 std::cout << "У Святого Павла нет учителя !" << std::endl;
                 break;
             }
