@@ -2,10 +2,22 @@
 // Created by yaroslav_admin on 24.11.22.
 //
 #include "data_handler.hpp"
+#include "commands.hpp"
 
-int main(){
-    load_data();
-    add_demo_value();
-    save_data();
+#include <iostream>
+#include <iomanip>
+#include <sqlite3.h>
+
+
+
+
+
+int main(int argc, char **argv){
+    connect_to_db();
+
+    cmd_demo();
+
+    // закрываем соединение
+    sqlite3_close(db);
     return 0;
 }
