@@ -25,6 +25,27 @@ void print_data_for_15_command(){
         std::cout << line[1] << " " << line[2] << " : " << make_marks_beautiful(temp[temp.size() - 1]) << std::endl;
     }
 }
+
+void print_data_for_16_command(){
+    for (auto line : data){
+        std::cout << line[2] << " : " << line[8] << std::endl;
+    }
+}
+void print_data_for_18_command(){
+    for(int i = 0; i< data.size(); i++) {
+        for (int j = 0 ; j < data[0].size() + 1; j++) {
+            if (data[0].size() == j){
+                std::cout << " " << find_average_for_student(i);
+                continue;
+            }
+            if (j == 6) {
+                std::cout << " " << make_marks_beautiful(data[i][j]).c_str();
+            } else
+                std::cout << " " << data[i][j];
+        }
+        std::cout << std::endl;
+    }
+}
 //void print_only_fios(){
 //    for (auto line : data){
 //        std::cout << line[0] << " " << line[1] << " " << line[2] << std::endl;
@@ -33,7 +54,7 @@ void print_data_for_15_command(){
 
 void command(int cmd){
     bool print = true;
-    for (int i : {14, 15}){
+    for (int i : {14, 15, 16, 17, 18, 20, 21}){
         if (i == cmd)
             print = false;
     }
@@ -59,13 +80,22 @@ void command(int cmd){
             case 15:
                 print_data_for_15_command();
                 break;
+            case 16:
+                print_data_for_16_command();
+                break;
+            case 17:
+                print_data_for_16_command();
+                break;
+            case 18:
+                print_data_for_18_command();
+                break;
 
         }
     }
 }
 
 void cmd_demo(){
-    command(15);
+    command(21);
 }
 
 #endif //CPP_1_COURSE_PART1_COMMANDS_HPP
