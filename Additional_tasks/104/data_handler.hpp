@@ -10,6 +10,7 @@
 #include <sqlite3.h>
 #include <iostream>
 #include <map>
+#include <cmath>
 
 sqlite3 *db = 0; // хэндл объекта соединение к БД
 char *err = 0;
@@ -23,6 +24,7 @@ float find_average_for_student(int);
 float find_average_for_student_19(int);
 std::string make_marks_beautiful(std::string);
 void find_average();
+void find_average_mark_on_last_exams();
 
 std::vector<std::vector<std::string>> data;
 
@@ -199,6 +201,10 @@ void sort_on_alph(){
         for (int j = 0; j < data.size() - 1; j++){
             if (data[j][1] > data[j + 1][1])
                 std::swap(data[j], data[j + 1]);
+            else if (data[j][1] == data[j + 1][1] and data[j][2] > data[j + 1][2])
+                std::swap(data[j], data[j + 1]);
+            else if (data[j][2] == data[j + 1][2] and data[j][3] > data[j + 1][3])
+                std::swap(data[j], data[j + 1]);
         }
     }
 }
@@ -212,10 +218,33 @@ void sort_on_start_year(){
     }
 }
 
-void sort_on_start_birthday(){
+void sort_on_birthday(){
     for (int i = 0; i < data.size();i++){
         for (int j = 0; j < data.size() - 1; j++){
             if (data[j][8] > data[j + 1][8])
+                std::swap(data[j], data[j + 1]);
+        }
+    }
+}
+
+void sort_on_birthday_year(){
+    for (int i = 0; i < data.size();i++){
+        for (int j = 0; j < data.size() - 1; j++){
+            std::string year_j = {data[j][8][0], data[j][8][1], data[j][8][2], data[j][8][3]};
+            std::string year_jp = {data[j + 1][8][0], data[j + 1][8][1], data[j + 1][8][2], data[j + 1][8][3]};
+            if (year_j > year_jp)
+                std::swap(data[j], data[j + 1]);
+        }
+    }
+}
+
+
+void sort_on_birthday_month(){
+    for (int i = 0; i < data.size();i++){
+        for (int j = 0; j < data.size() - 1; j++){
+            std::string month_j = {data[j][8][4], data[j][8][5]};
+            std::string month_jp = {data[j + 1][8][4], data[j + 1][8][5]};
+            if (month_j > month_jp)
                 std::swap(data[j], data[j + 1]);
         }
     }
@@ -287,7 +316,30 @@ void proces_21_task(){
         }
     }
 }
+float round_2(float a){
+    return round(a*100)/100;
+}
 
+
+void proces_22_task(){
+    std::vector<std::vector<std::string>> result = data;
+    for (int i = 0; i < data.size();i++){
+        if(round_2(find_average_for_loaded_student(i)) == round_2(average)){
+            for (int j = 0 ; j < data[0].size() + 1; j++) {
+                if (j == data[0].size()){
+                    std::cout << " " << round_2(find_average_for_loaded_student(i));
+                    continue;
+                }
+                if (j == 6) {
+                    std::cout << " " << make_marks_beautiful(data[i][j]).c_str();
+                } else
+                    std::cout << " " << data[i][j];
+            }
+            std::cout << std::endl;
+
+        }
+    }
+}
 void run_sql_cmd(int cmd_id){
     wipe_data();
     int return_code = SQLITE_OK;
@@ -333,7 +385,7 @@ void run_sql_cmd(int cmd_id){
             break;
         case 10:
             return_code = sqlite3_exec(db, GET_A_STUDENTS.c_str(), callback, nullptr, &err);
-            sort_on_start_birthday();
+            sort_on_birthday_year();
             break;
         case 12:
             return_code = sqlite3_exec(db, GET_8_CMD.c_str(), callback, nullptr, &err);
@@ -341,7 +393,7 @@ void run_sql_cmd(int cmd_id){
             break;
         case 13:
             return_code = sqlite3_exec(db, GET_B_STUDENTS.c_str(), callback, nullptr, &err);
-            sort_on_start_birthday();
+            sort_on_birthday_year();
             break;
         case 14:
             return_code = sqlite3_exec(db, GET_14_CMD.c_str(), callback, nullptr, &err);
@@ -391,6 +443,46 @@ void run_sql_cmd(int cmd_id){
             std::cout << "ID/ name / surname / Patronymic / Course / StudyGroup / MarksList / StartYear /Birthday / Average Mark" << std::endl;
             proces_21_task();
             break;
+        case 22:
+            std::cout << "Введите группу :";
+            std::cin >> buffer;
+            req = "SELECT * FROM students WHERE StudyGroup = \"" + buffer + "\"";
+            return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
+            if (data.empty()){
+                std::cout << "Похоже такой группы нет !" << std::endl;
+                exit(0);
+            }
+            find_average_mark_on_last_exams();
+            std::cout << "Средний балл группы в последнюю сессию :" << average << std::endl;
+            std::cout << "ID/ name / surname / Patronymic / Course / StudyGroup / MarksList / StartYear /Birthday / Average Mark on last exam" << std::endl;
+            proces_22_task();
+            break;
+        case 27:
+            req = "SELECT * FROM students";
+            return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
+            sort_on_birthday();
+            break;
+        case 23:
+            req = "SELECT * FROM students";
+            return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
+            sort_on_birthday_year();
+            break;
+        case 24:
+            req = "SELECT * FROM students";
+            return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
+            sort_on_birthday_month();
+            break;
+        case 25:
+            req = "SELECT * FROM students";
+            return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
+            sort_on_alph();
+            break;
+        case 26:
+            return_code = sqlite3_exec(db, GET_A_STUDENTS.c_str(), callback, nullptr, &err);
+            sort_on_birthday_year();
+            break;
+
+
     }
     proces_sql_error(return_code);
 
@@ -461,9 +553,47 @@ void print_students(){
 void find_average(){
     float sum = 0.0f;
     float count = 0.0f;
-     std::cout << "Len :" << data.size() << std::endl;
+    // std::cout << "Len :" << data.size() << std::endl;
     for (auto line : data){
         std::string marks = line[6];
+        for (char c : marks){
+            switch (c) {
+                case '2':
+                    sum += 2.0f;
+                    break;
+                case '3':
+                    sum += 3.0f;
+                    break;
+                case '4':
+                    sum += 4.0f;
+                    break;
+                case '5':
+                    sum += 5.0f;
+                    break;
+                case 'P':
+                    sum += 5.0f;
+                    break;
+                case 'F':
+                    sum += 2.0f;
+                    break;
+                default:
+                    count--;
+                    break;
+            }
+            count++;
+        }
+    }
+    average = sum / count;
+}
+
+
+void find_average_mark_on_last_exams(){
+    float sum = 0.0f;
+    float count = 0.0f;
+    // std::cout << "Len :" << data.size() << std::endl;
+    for (auto line : data){
+        auto temp = split(line[6]);
+        std::string marks = temp[temp.size() - 1];
         for (char c : marks){
             switch (c) {
                 case '2':

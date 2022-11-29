@@ -94,8 +94,4 @@ void command(int cmd){
     }
 }
 
-void cmd_demo(){
-    command(21);
-}
-
 #endif //CPP_1_COURSE_PART1_COMMANDS_HPP
