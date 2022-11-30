@@ -218,6 +218,7 @@ void proces_data_cmd7(){
 void sort_on_alph(){
     for (int i = 0; i < data.size();i++){
         for (int j = 0; j < data.size() - 1; j++){
+            // std::cout << data[j][2] << " / " << data[j][1] << std::endl;
             if (data[j][2] > data[j + 1][2])
                 std::swap(data[j], data[j + 1]);
             else if (data[j][2] == data[j + 1][2] and data[j][1] > data[j + 1][1])
@@ -261,8 +262,8 @@ void sort_on_birthday_year(){
 void sort_on_birthday_month(){
     for (int i = 0; i < data.size();i++){
         for (int j = 0; j < data.size() - 1; j++){
-            std::string month_j = {data[j][8][4], data[j][8][5]};
-            std::string month_jp = {data[j + 1][8][4], data[j + 1][8][5]};
+            std::string month_j = {data[j][8][5], data[j][8][6]};
+            std::string month_jp = {data[j + 1][8][5], data[j + 1][8][6]};
             if (month_j > month_jp)
                 std::swap(data[j], data[j + 1]);
         }
