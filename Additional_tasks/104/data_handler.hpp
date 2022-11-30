@@ -434,6 +434,8 @@ void run_sql_cmd(int cmd_id){
             break;
         case 19:
             return_code = sqlite3_exec(db, "SELECT * FROM students", callback, nullptr, &err);
+            find_average_mark_on_last_exams();
+            std::cout << "Средний балл в последнюю сессию:" << average << std::endl;
             sort_on_average_19();
             break;
         case 20:
