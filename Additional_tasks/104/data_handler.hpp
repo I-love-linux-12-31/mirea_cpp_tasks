@@ -218,11 +218,11 @@ void proces_data_cmd7(){
 void sort_on_alph(){
     for (int i = 0; i < data.size();i++){
         for (int j = 0; j < data.size() - 1; j++){
-            if (data[j][1] > data[j + 1][1])
+            if (data[j][2] > data[j + 1][2])
                 std::swap(data[j], data[j + 1]);
-            else if (data[j][1] == data[j + 1][1] and data[j][2] > data[j + 1][2])
+            else if (data[j][2] == data[j + 1][2] and data[j][1] > data[j + 1][1])
                 std::swap(data[j], data[j + 1]);
-            else if (data[j][2] == data[j + 1][2] and data[j][3] > data[j + 1][3])
+            else if (data[j][1] == data[j + 1][1] and data[j][3] > data[j + 1][3])
                 std::swap(data[j], data[j + 1]);
         }
     }
