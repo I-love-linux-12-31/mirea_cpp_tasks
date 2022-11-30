@@ -432,12 +432,13 @@ void run_sql_cmd(int cmd_id){
             sort_on_average();
             break;
         case 19:
-            sort_on_average_19();
             return_code = sqlite3_exec(db, "SELECT * FROM students", callback, nullptr, &err);
+            sort_on_average_19();
             break;
         case 20:
             std::cout << "Введите группу :";
-            std::cin >> buffer;
+            // std::cin >> buffer;
+            getline(std::cin, buffer);
             req = "SELECT * FROM students WHERE StudyGroup = \"" + buffer + "\"";
             return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
             if (data.empty()){
@@ -451,7 +452,8 @@ void run_sql_cmd(int cmd_id){
             break;
         case 21:
             std::cout << "Введите группу :";
-            std::cin >> buffer;
+            // std::cin >> buffer;
+            getline(std::cin, buffer);
             req = "SELECT * FROM students WHERE StudyGroup = \"" + buffer + "\"";
             return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
             if (data.empty()){
@@ -465,7 +467,8 @@ void run_sql_cmd(int cmd_id){
             break;
         case 22:
             std::cout << "Введите группу :";
-            std::cin >> buffer;
+            // std::cin >> buffer;
+            getline(std::cin, buffer);
             req = "SELECT * FROM students WHERE StudyGroup = \"" + buffer + "\"";
             return_code = sqlite3_exec(db, req.c_str(), callback, nullptr, &err);
             if (data.empty()){
@@ -726,7 +729,7 @@ float find_average_for_student_19(int student_id){
     return sum / count;
 }
 void connect_to_db(){
-    int return_code = sqlite3_open("students_lite.db", &db);
+    int return_code = sqlite3_open("students_min.db", &db);
     if( return_code ){
         fprintf(stderr, "Ошибка открытия/создания БД: %s\n", sqlite3_errmsg(db));
         exit(1);
