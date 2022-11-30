@@ -127,6 +127,25 @@ void proces_sql_error(int return_code){
 }
 
 
+void proces_data_cmd4(){
+    std::vector<std::vector<std::string>>  result;
+    int is_ok = 0;
+    for (auto line : data){
+        is_ok = 0;
+        std::string marks_raw = line[6];
+        std::vector<std::string> marks_data = split(marks_raw);
+        for (char i : marks_data[marks_data.size() - 1]){
+            if (i == '2') {
+                is_ok += 1;
+            }
+        }
+        if (is_ok > 1){
+            result.push_back(line);
+        }
+    }
+    data = result;
+}
+
 void proces_data_cmd5(){
     std::vector<std::vector<std::string>>  result;
     bool is_ok = true;
@@ -357,6 +376,7 @@ void run_sql_cmd(int cmd_id){
             break;
         case 4:
             return_code = sqlite3_exec(db, GET_4_CMD.c_str(), callback, nullptr, &err);
+            proces_data_cmd4();
             break;
         case 5:
             return_code = sqlite3_exec(db, GET_5_CMD.c_str(), callback, nullptr, &err);
