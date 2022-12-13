@@ -18,11 +18,24 @@ int get_any_int_from_user() {
 }
 
 int main(){
+    std::cout << "Данная программа вычисляет сколько прошло времении с рождения чаловека\nНеобходимо по очереди ввести день, месяц и год рождения.\n\033[31mПри вводе не целого числа будет учтена только его целая часть!\033[0m" << std::endl;
     int in_days, in_months, in_years;
     int now_days, now_months, now_years;
+    std::cout << "Введите день :";
     in_days = get_any_int_from_user();
+    if (in_days > 31 or in_days < 1){
+        std::cout << "Такого дня быть не может !!!\n";
+        exit(0);
+    }
+    std::cout << "Введите месяц :";
     in_months = get_any_int_from_user();
+    if (in_months > 12 or in_months < 1){
+        std::cout << "Такого месяца быть не может !!!\n";
+        exit(0);
+    }
+    std::cout << "Введите год :";
     in_years = get_any_int_from_user();
+
     now_days = 13;
     now_months = 12;
     now_years = 2022;
