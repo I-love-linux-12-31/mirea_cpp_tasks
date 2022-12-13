@@ -54,7 +54,7 @@ int main(){
     }
     dy = now_years - in_years;
 
-    std::cout << dy << " " << dm << " " << dd << std::endl;
+    std::cout << "С этого момента прошло :" << dy << " лет " << dm << " месяцев " << dd << " дней" << std::endl;
 
 
 }
