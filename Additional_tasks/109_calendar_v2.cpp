@@ -6,13 +6,16 @@
 #include <iostream>
 #include <vector>
 
+// 1900 -
+// Висакостный должен днлится на 400 или на 4
+// просто деление на сто - НЕ високостный (если делится а сто то для високостности обязан делится на 400!)
 std::vector<int> days_peer_month = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 int get_any_int_from_user() {
     int result;
     std::string buffer;
     getline(std::cin, buffer);
-    while (sscanf(buffer.c_str(), "%d", &result) != 1) {
+    while (sscanf(buffer.c_str(), "%d", &result) != 1)   {
         std::cout << "Не корректный ввод! Должно быть целое число, например 10 !" << std::endl;
         std::cout << "Введите число :";
 
