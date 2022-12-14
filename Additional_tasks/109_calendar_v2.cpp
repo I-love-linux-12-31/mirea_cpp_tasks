@@ -28,6 +28,7 @@ int main(){
     std::cout << "Данная программа вычисляет сколько прошло времении с рождения чаловека\nНеобходимо по очереди ввести день, месяц и год рождения.\n\033[31mПри вводе не целого числа будет учтена только его целая часть!\033[0m" << std::endl;
     int in_days, in_months, in_years;
     int now_days, now_months, now_years;
+    int dd = 0, dm = 0, dy = 0;
     std::cout << "Введите день :";
     in_days = get_any_int_from_user();
     if (in_days > 31 or in_days < 1){
@@ -61,11 +62,26 @@ int main(){
     now_days = ltm->tm_mday;
     std::cout << "Сегодня :" << now_days << "." << now_months << "." << now_years << std::endl;
 
+    bool born_in_future = false;
+    if (in_years * 365 + in_months * 31 + in_days > now_years * 365 + now_months * 31 + now_days){
+        born_in_future = true;
+        int temp;
+        temp = now_days;
+        now_days = in_days;
+        in_days = temp;
+
+        temp = now_months;
+        now_months = in_months;
+        in_months = temp;
+
+        temp = now_years;
+        now_years = in_years;
+        in_years = temp;
+    }
+
 //    now_days = 1;
 //    now_months = 3;
 //    now_years = 2012;
-
-    int dd = 0, dm = 0, dy = 0;
     dd = now_days - in_days;
     if (dd < 0){
         dd += 30;
@@ -77,8 +93,10 @@ int main(){
         dy -= 1;
     }
     dy = now_years - in_years;
-
-    std::cout << "С этого момента прошло :" << dy << " лет " << dm << " месяцев " << dd << " дней" << std::endl;
+    if (born_in_future)
+        std::cout << "До этого момента осталось :" << dy - 1 << " лет " << dm << " месяцев " << dd << " дней" << std::endl;
+    else
+        std::cout << "С этого момента прошло :" << dy << " лет " << dm << " месяцев " << dd << " дней" << std::endl;
 
 
 }
