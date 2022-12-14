@@ -2,6 +2,7 @@
 // Created by yaroslav_admin on 23.11.22.
 //
 
+#include <ctime>
 #include <iostream>
 
 int get_any_int_from_user() {
@@ -36,10 +37,19 @@ int main(){
     std::cout << "Введите год :";
     in_years = get_any_int_from_user();
 
-    now_days = 13;
-    now_months = 12;
-    now_years = 2022;
 
+
+    time_t now = time(nullptr);
+    tm *ltm = std::gmtime(&now);
+
+    now_years = 1900 + ltm->tm_year;
+    now_months = 1 + ltm->tm_mon;
+    now_days = ltm->tm_mday;
+    std::cout << "Сегодня :" << now_days << "." << now_months << "." << now_years << std::endl;
+
+//    now_days = 1;
+//    now_months = 3;
+//    now_years = 2012;
 
     int dd = 0, dm = 0, dy = 0;
     dd = now_days - in_days;
