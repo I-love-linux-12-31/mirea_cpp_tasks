@@ -4,6 +4,9 @@
 
 #include <ctime>
 #include <iostream>
+#include <vector>
+
+std::vector<int> days_peer_month = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 int get_any_int_from_user() {
     int result;
@@ -37,6 +40,14 @@ int main(){
     std::cout << "Введите год :";
     in_years = get_any_int_from_user();
 
+    if (days_peer_month[in_months] < in_days){
+        std::cout << "Такой даты не существует!!!\n";
+        exit(0);
+    }
+    if (in_years % 4 != 0 and in_months == 2 and in_days == 29){
+        std::cout << "Такой даты не существует!!!\n";
+        exit(0);
+    }
 
 
     time_t now = time(nullptr);
