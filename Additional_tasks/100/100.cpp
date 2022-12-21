@@ -4,7 +4,10 @@
 
 #include <iostream>
 #include <fstream>
+
 // #include <>
+
+#define UNKNOWN 9999
 
 int get_int_above_or_0_from_user(){
     int result;
@@ -66,13 +69,38 @@ void save_to_file(std::string filename, int data[21][21]){
 
 auto make_next_move(int now[21][21]){
     static int next[21][21];
+    int neighbors;
     for (int line_id = 0 ; line_id < 21; line_id++){
         for (int item_id = 0 ; item_id < 21; item_id++){
-            next[line_id][item_id] = now[line_id][item_id] + 1;
+            neighbors = 0;
+            for (
+                    int neighbor : {
+                        now[line_id][item_id + 1],
+                        now[line_id][item_id - 1],
+                        now[line_id + 1][item_id],
+                        now[line_id - 1][item_id],
+                    }
+                    ){
+                if (neighbor > 0)
+                    neighbors++;
+            }
+            if (neighbors == 2 or neighbors == 3)
+                next[line_id][item_id] = now[line_id][item_id] + 1;
+            else
+                next[line_id][item_id] = 0;
+
+            if (next[line_id][item_id] >= 13)
+                next[line_id][item_id] = 0;
             if (now[line_id][item_id] < 0)
                 next[line_id][item_id] = -10;
         }
     }
+
+
+
+
+
+
     return next;
 }
 
@@ -94,6 +122,27 @@ void print_data(int data[21][21]){
     }
 }
 
+bool is_all_dead(int data[21][21]){
+    for (int line_id = 0 ; line_id < 21; line_id++){
+        for (int item_id = 0 ; item_id < 21; item_id++){
+            if (data[line_id][item_id] > 0)
+                return false;
+        }
+    }
+    return true;
+}
+
+int get_alive_count(int data[21][21]){
+    int res = 0;
+    for (int line_id = 0 ; line_id < 21; line_id++){
+        for (int item_id = 0 ; item_id < 21; item_id++){
+            if (data[line_id][item_id] > 0)
+                res++;
+        }
+    }
+    return res;
+}
+
 int main(){
     auto now = get_data_from_file();
     // print_data(now);
@@ -101,15 +150,23 @@ int main(){
     std::cout << "Сколько поколений рассчитать :" << std::endl;
     int iterations = get_int_above_or_0_from_user();
     if (iterations == 0){
+        std::cout << "Нечего вычислять !" << std::endl;
         save_to_file("work.out", now);
         exit(0);
     }
+
+    std::cout << "Исходное поле из микробов 1-ого поколния!" << std::endl;
+    print_data(now);
     for (int i = 0 ; i < iterations; i++){
+        if (is_all_dead(now)){
+            std::cout << "В " << i + 1  << " поколения все умерли!" << std::endl;
+            break;
+        }
         now = make_next_move(now);
+        std::cout << " После " << i + 1  << " поколения осталось " << get_alive_count(now) << " микробов." << std::endl;
+        print_data(now);
         save_to_file("work_iteration_" + std::to_string(i + 1) + ".out", now);
     }
-    print_data(now);
     save_to_file("work.out", now);
-
     return 0;
 }
