@@ -72,6 +72,11 @@ auto make_next_move(int now[21][21]){
     int neighbors;
     for (int line_id = 0 ; line_id < 21; line_id++){
         for (int item_id = 0 ; item_id < 21; item_id++){
+            if (now[line_id][item_id] < 0) {
+                next[line_id][item_id] = -10;
+                continue;
+            }
+
             neighbors = 0;
             for (
                     int neighbor : {
@@ -91,8 +96,7 @@ auto make_next_move(int now[21][21]){
 
             if (next[line_id][item_id] >= 13)
                 next[line_id][item_id] = 0;
-            if (now[line_id][item_id] < 0)
-                next[line_id][item_id] = -10;
+
         }
     }
 
