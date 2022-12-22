@@ -8,6 +8,11 @@
 
 #include <cstdlib>
 int main() {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::ofstream out_file("text.txt");
     if (!out_file){
         std::cout << "File creation error !" << std::endl;
@@ -31,8 +36,6 @@ int main() {
         getline(file_in, buffer);
         std::cout << buffer << std::endl;
     }
-
-
 
 
     return 0;

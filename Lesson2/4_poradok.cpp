@@ -5,6 +5,11 @@
 
 
 int main() {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     int n;
     float buff;
     std::cout << "Введите N :";

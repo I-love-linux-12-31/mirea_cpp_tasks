@@ -37,21 +37,18 @@ int main(){
         val = func(x);
         if (val < 7 and val > -7) {
             output[x][8 + (int)round(val)] = '#';
-            // std::cout << "SET " << x << " " << 8 + (int)round(val) << " !" << std::endl;
         }
-        else {
-            // std::cout << "ERR \n";
-        }
+
     }
 
     for(int y=0; y<16; y++){
         for(int x=0; x<128; x++){
             if (x == 0){
-                std::cout << "\e[42m\e[1m";
+                std::cout << "\033[42m\033[1m";
             }
             std::cout << output[x][y];
             if (x == 127){
-                std::cout << "\e[0m";
+                std::cout << "\033[0m";
             }
 
         }

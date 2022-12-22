@@ -28,6 +28,11 @@ int get_random(){
 }
 
 int main () {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::cout << "Вы хотите начать с больших чисел y/n :" << std::endl;
     bool user_mode_1 = get_bool_from_user();
     if (user_mode_1){

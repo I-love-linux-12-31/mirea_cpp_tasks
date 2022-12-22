@@ -8,6 +8,12 @@
 
 #include <cstdlib>
 int main() {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
+
     std::ofstream out_file("text.txt");
     if (!out_file){
         std::cout << "File creation error !" << std::endl;
@@ -22,13 +28,11 @@ int main() {
             std::cin >> _buffer;
         }
 
-
         out_file << _buffer << std::endl;
 
     }
 
     out_file.close();
-
 
     std::string buffer;
 
@@ -46,7 +50,7 @@ int main() {
             result = result + buff;
         }
     }
-    std::cout << result << std::endl;
+    std::cout << "Сумма : " << result << std::endl;
 
 
 

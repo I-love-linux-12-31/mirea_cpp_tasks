@@ -10,6 +10,11 @@ double func(double x){
 }
 
 int main() {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     double j = -4;
     std::cout << "   x     y\033[32m" << std::endl;
 

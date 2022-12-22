@@ -3,9 +3,11 @@
 using namespace std;
 
 int main() {
-    //std::cout << "Hello, World!" << std::endl;
-    setlocale(0, "ru_RU.UTF-8");
-    //cout << "Ярослав Kuznetsov!" << endl;
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
 
     double a, b, c, descr;
     cout << "Введите a:\n";

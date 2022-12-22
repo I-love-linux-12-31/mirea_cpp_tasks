@@ -22,8 +22,13 @@ int get_char_level(char &a){
 }
 
 int main() {
-    // setlocale(LC_ALL, ""); for windows
-    std::cout << "\033[32m\033[1mВведите строку для обработки :\033[0m\033[1m";
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
+
+    std::cout << "\033[32m\033[1mВведите строку для обработки из английских букв:\033[0m\033[1m";
     std::string my_string;
     std::cin >> my_string;
     char temp;

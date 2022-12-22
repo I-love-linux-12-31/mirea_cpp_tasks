@@ -10,6 +10,11 @@ double get_m(double s, double p, double n) {
 
 
 int main() {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     double s, p, n;
     //S, p, n
     std::cout << "Введите s :" << std::endl;

@@ -123,7 +123,11 @@ int read_data_to_dec(int cs){
 }
 
 int main() {
-
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::cout << "Введите систему счисления (целое число) :" << std::endl;
     int cs;
     std::cin >> cs;

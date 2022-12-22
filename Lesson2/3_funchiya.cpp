@@ -9,6 +9,11 @@ double func (double x, double y, double b) {
 }
 
 int main() {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     double x, y, b;
     std::cout << "Введите x :";
     std::cin >> x;
@@ -16,7 +21,11 @@ int main() {
     std::cin >> y;
     std::cout << "Введите b :";
     std::cin >> b;
-    std::cout << "Ответ w = " << func(x, y, b) << std::endl;
+    if (x > b or y >= b){
+        std::cout << "Нельзя вычислить z !" << std::endl;
+        exit(0);
+    }
+    std::cout << "Ответ z = " << func(x, y, b) << std::endl;
 
     return 0;
 }
