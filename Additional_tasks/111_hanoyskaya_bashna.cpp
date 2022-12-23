@@ -22,6 +22,11 @@ void hanoi(int quantity, int from, int to, int buf_peg)
 
 int main()
 {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     int start_peg = 1, destination_peg = 3, buffer_peg = 2, rings_quantity;
     std::cout << "Введите количество колец:" << std::endl;
     rings_quantity = get_int_more_0_from_user();

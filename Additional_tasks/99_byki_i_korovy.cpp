@@ -3,7 +3,7 @@
 //
 #include <random>
 #include <iostream>
-#include <time.h>
+#include <ctime>
 
 
 int get_random(){
@@ -51,7 +51,7 @@ int get_correct_int_from_user(){
     std::string str_buffer;
     std::cout << "Введите число: ";
     std::cin >> str_buffer;
-    while (sscanf(str_buffer.c_str(), "%d", &result) != 1 or result <= 999 or result >= 10000){
+    while (sscanf(str_buffer.c_str(), "%d", &result) != 1 or result <= 999 or result >= 10000 or str_buffer.length() != 4){
         std::cout << "\033[31mВвод некорекиен!\033[0m Введите число из интервала [1000, 9999]: ";
         std::cin >> str_buffer;
     }
@@ -59,6 +59,11 @@ int get_correct_int_from_user(){
 }
 
 int main(){
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     int value = get_correct_random();
     std::cout << value << std::endl;
     std::string str_value = std::to_string(value);

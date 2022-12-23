@@ -97,6 +97,11 @@ void print_help(){
 
 
 int main(int argc, char **argv){
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     connect_to_db();
 
     std::cout << "Добро пожаловать в лучшую программу для учёта студентов. Для помощи введите \"0\"" << std::endl;

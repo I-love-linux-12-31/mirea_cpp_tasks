@@ -5,10 +5,6 @@
 #include <iostream>
 #include <fstream>
 
-// #include <>
-
-#define UNKNOWN 9999
-
 int get_int_above_or_0_from_user(){
     int result;
     std::string buffer;
@@ -148,6 +144,11 @@ int get_alive_count(int data[21][21]){
 }
 
 int main(){
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     auto now = get_data_from_file();
     // print_data(now);
 
