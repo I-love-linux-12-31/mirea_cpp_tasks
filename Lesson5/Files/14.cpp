@@ -22,7 +22,6 @@ void create_file_with_data(){
     for (unsigned int i = 0; i < n; i++){
         std::cout << "\033[1m\033[32m ->";
         temp = get_any_int_from_user();
-        //temp = get_int_more_0_from_user();
         out_file << temp << std::endl;
     }
     out_file.close();
@@ -41,11 +40,7 @@ bool is_correct_data_block(std::vector<int>* data){
         if (data_local[i] != data_local[data->size() - i - 1])
             return false;
     }
-//    std::cout << "OK :" << std::endl;
-//    for (int i : data_local){
-//        std::cout << i << " ";
-//    }
-//    std::cout << std::endl;
+
     return true;
 }
 
@@ -65,7 +60,6 @@ std::vector<int>* get_data_from_file(){
             break;
         sscanf(buffer.c_str(), "%d", &temp);
         data.push_back(temp);
-//        std::cout << "::" << temp << std::endl;
     }
 
     return &data;
@@ -86,7 +80,6 @@ std::vector<int>* get_target_data (std::vector<int>* data) {
                 temp->push_back(data_value[i]);
             if (is_correct_data_block(temp))
                 results.push_back(*temp);
-//            std::cout << start_index << " | " << end_index << std::endl;
             delete temp;
 
         }

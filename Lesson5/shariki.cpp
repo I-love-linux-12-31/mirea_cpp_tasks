@@ -29,7 +29,6 @@ std::vector<std::vector<int>> get_variants(std::vector<std::vector<int>> data, s
                 result.push_back(line);
             }
 
-        //}
     }
     return result;
 }
@@ -57,10 +56,13 @@ int get_target_combinations_count ( std::vector<std::vector<int>> _data){
 
 
 int main () {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::cout << "Сколько шариков?" << std::endl;
     int n = get_int_more_0_from_user();
-//    std::cout << "Нашлось " << factorial(n - 1)*n << " варианта(ов)" << std::endl;
-//    std::cout << "Start" << std::endl;
     std::vector<int> numbers;
     for (int j = 0; j < n; j++){
         numbers.push_back(j);

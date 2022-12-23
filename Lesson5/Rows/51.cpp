@@ -6,6 +6,11 @@
 
 
 int main () {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     int cols, rows;
     std::cout << "Введите кол-во строк :" << std::endl;
     std::cin >> rows;
@@ -25,14 +30,11 @@ int main () {
         }
 
         getline(std::cin, str_buff);
-        //std::cin >> str_buff;
-        //std::cout << "Got :" << str_buff << std::endl;
         buff = "";
         unsigned int j = 0;
         for (unsigned int counter = 0; counter < str_buff.length(); counter++){
             if (str_buff[counter] == ' ' or str_buff[counter] == '\t'){
                 sscanf(buff.c_str(), "%f", &data[i][j]);
-                //std::cout << "Buffer = " << buff << " added as :" << data[i][j] << std::endl;
                 buff = "";
                 j++;
             }
@@ -42,7 +44,6 @@ int main () {
         }
         if (buff != ""){
             sscanf(buff.c_str(), "%f", &data[i][j]);
-            //std::cout << "Buffer = " << buff << " added as :" << data[i][j] << std::endl;
         }
 
 
@@ -54,10 +55,7 @@ int main () {
                 sum += data[i][j];
             }
 
-            // std::cout << data[i][j] << " ";
-
         }
-        // std::cout << std::endl;
     }
     std::cout << "\033[94mИскомая сумма: \033[0m\033[1m" << sum << std::endl;
 

@@ -8,6 +8,11 @@
 
 
 int main () {
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::map<char, int> data;
     std::string en_sogls = "BCDFGHJKLMNPQRSTVWXYZ";
     std::string en_glasnye = "AEIOUY";
@@ -33,24 +38,15 @@ int main () {
             if (data.find(char_buffer) != data.end()) { // Проверка валидности ключа.
                 data[char_buffer] += 1;
             }
-            else {
-                // Этот символ считать не нужно !
-            }
-
 
         }
 
     }
-//    std::cout << "Raw data:" << std::endl;
-//    for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
-//        std::cout << iterator->first << " : " << iterator->second << std::endl;
-//    }
 
     char max_char_key;
     int max_char_count = -1;
 
     for (std::map<char, int> :: iterator iterator = data.begin(); iterator != data.end(); iterator++) {
-        // std::cout << iterator->first << " : " << iterator->second << std::endl;
         if (iterator->second > max_char_count){
             max_char_count = iterator->second;
             max_char_key = iterator->first;
@@ -76,7 +72,6 @@ int main () {
         std::cout << "Самый часто встречающийся согласный: " << max_char_key <<". Он встретился " << max_char_count << " раз(а)." << std::endl;
     else
         std::cout << "Самые часто встречающиеся согласные: " << target_sogls <<". Они встретились " << max_char_count << " раз(а)." << std::endl;
-
 
 
     return 0;

@@ -21,6 +21,11 @@ bool isSofiZermen (int num){
 }
 
 int main(){
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::cout << "Данная программа ищет числа Софи Жермен в диапозоне [m, n]" << std::endl;
     int m, n;
     std::cout << "Введите число m:";

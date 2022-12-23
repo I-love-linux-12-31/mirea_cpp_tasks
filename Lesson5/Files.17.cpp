@@ -24,7 +24,6 @@ int get_val_for_sort(std::string line){
                 result += ((int)c - 48);
             }
     }
-    // std::cout << line << " :: " << result <<std::endl;
     return result;
 }
 
@@ -39,6 +38,11 @@ void sort_data(){
 }
 
 int main(){
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::cout << "Сколько чисел вы хотите ввести :" << std::endl;
     int n = get_int_more_0_from_user();
     std::ofstream file_out1("17_out_1.txt");

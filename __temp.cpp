@@ -1,142 +1,86 @@
-//
-// Created by yaroslav_admin on 19.10.22.
-//
+// Lesson 5
 #include <iostream>
-#include <string>
-#include <fstream>
 #include <vector>
 
-bool get_bool_from_user(){
+int get_int_more_0_from_user(){
+    int result;
     std::string buffer;
     getline(std::cin, buffer);
-    for (unsigned int i = 0; i < buffer.size(); i++){
-        buffer[i] = toupper(buffer[i]);
+    while(sscanf(buffer.c_str(), "%d", &result) != 1 or result <= 0){
+        std::cout << "Не корректный ввод! Должно быть целое число > 0, например 16 !" << std::endl;
+        std::cout << "Введите число :";
+
+        getline(std::cin, buffer);
     }
-    if (buffer == "Y" or buffer == "YES" or buffer == "TRUE" or buffer == "OK" or buffer == "+")
-        return true;
-    if (buffer == "N" or buffer == "NO" or buffer == "FALSE" or buffer == "-")
-        return false;
-    std::cout << "Не корректный ввод! y/n :" << std::endl;
-    return get_bool_from_user();
+    return result;
 }
 
-std::vector<std::string> data;
-bool is_punctuation(char a){
-    for (char i : "0123456789?/\\,.<>;:'\"[]{}()_-+=*&^%$#@!~` ”\t\n")
-        if (a == i)
-            return true;
-    return false;
-}
+std::vector<std::vector<int>> get_variants(std::vector<std::vector<int>> data, std::vector<int> variants, int level){
 
-std::vector<std::string> split(std::string &str){
-    std::vector<std::string> result;
-    std::string buffer;
-    for(auto i : str){
-        if (!is_punctuation(i)){
-            buffer += (char)std::tolower(i);
+    std::vector<std::vector<int>> result;
+    std::vector<int> variants_temp;
+    if (variants.empty())
+        return data;
+
+    for (int v_index = 0 ; v_index < variants.size(); v_index++){
+        variants_temp = variants;
+        int current_vr = variants_temp[v_index];
+        variants_temp.erase(variants_temp.begin() + v_index);
+        std::vector<std::vector<int>> data_temp;
+        data_temp = data;
+        for (int line_id = 0; line_id < data_temp.size(); line_id++){
+            data_temp[line_id].push_back(current_vr);
         }
-        else {
-            if (!buffer.empty())
-                result.push_back(buffer);
-            buffer.clear();
+        if (data.empty()){
+            data_temp.push_back({current_vr});
         }
+
+
+        for (auto line : get_variants(data_temp, variants_temp, level + 1)){
+
+            result.push_back(line);
+        }
+
     }
-    if (!buffer.empty())
-        result.push_back(buffer);
     return result;
 }
 
 
-bool exists_in_data (std::string &val){
-    for (auto i : data){
-        if (val == i)
+bool is_correct(std::vector<int> _line){
+    for (int i = 0; i < _line.size(); i++){
+        if (i == _line[i])
             return true;
     }
     return false;
-}
-
-void load_data(std::string filename){
-    std::ifstream file_in;
-    file_in.open(filename);
-    if (!file_in){
-        std::cout << "Нет такого файла !!!" << std::endl;
-        exit(0);
-    }
-    std::string buffer;
-
-    while(std::getline(file_in, buffer)){
-        for (auto s : split(buffer))
-            if (!exists_in_data(s))
-                data.push_back(s);
-    }
 
 }
 
-bool str_a_is_more_than_b (std::string a, std::string b){
-    for (unsigned int i = 0; i < a.length();i++){
-        if (i >= b.length())
-            return true;
-        if ((int)a[i] > (int)b[i])
-            return true;
-        if ((int)a[i] < (int)b[i])
-            return false;
+
+int get_target_combinations_count ( std::vector<std::vector<int>> _data){
+    int count = 0;
+    for (auto _line : _data){
+        if (is_correct(_line))
+            count++;
     }
-    return false;
+    return count;
 }
 
 
-void sort_data(){
-    for (unsigned int j = 0; j < data.size(); j++){
-        for (unsigned int i = 0; i < data.size() - 1; i++){
-            if (str_a_is_more_than_b(data[i], data[i + 1])){
-                std::swap(data[i], data[i + 1]);
-            }
-        }
-    }
 
-
-}
-
-int main (){
+int main () {
 #if defined(WIN32)
     setlocale(LC_ALL, "Rus");
 #else
     setlocale(LC_ALL, "ru_RU.UTF-8");
 #endif
-    std::cout << "Данная программа читает слова из файла, сортирует их." << std::endl;
-
-    std::string filename;
-    std::cout << "Введите имя входного файла (Например LoremIpsum1.txt):" << std::endl;
-    getline(std::cin, filename);
-    load_data(filename);
-    if (data.size() == 0){
-        std::cout << "В файле нет слов !" << std::endl;
-        exit(0);
+    std::cout << "Сколько шариков?" << std::endl;
+    int n = get_int_more_0_from_user();
+    std::vector<int> numbers;
+    for (int j = 0; j < n; j++){
+        numbers.push_back(j);
     }
-    sort_data();
-    sort_data();
 
-    std::cout << "Записать отсортированные слова в файл text_17_out.txt? [y/n]" << std::endl;
-    bool do_file_out = get_bool_from_user();
-    std::ofstream out_file;
-    if (do_file_out)
-        out_file.open("text_17_out.txt");
+    auto res = get_variants({}, numbers, 0);
+    std::cout << "Нашлось " << get_target_combinations_count(res) << " варианта(ов) из " << res.size() << std::endl;
 
-    std::cout << "Вывести отсортированные слова на экран? [y/n]" << std::endl;
-    bool do_std_out = get_bool_from_user();
-
-    if (do_std_out) {
-        std::cout << "Отсортированные слова:" << std::endl;
-        for (auto w: data) {
-            if (do_file_out)
-                out_file << w << std::endl;
-            std::cout << w << std::endl;
-        }
-    }
-    if (do_file_out)
-        for (auto w: data) {
-            out_file << w << std::endl;
-        }
-    out_file.close();
-    return 0;
 }
