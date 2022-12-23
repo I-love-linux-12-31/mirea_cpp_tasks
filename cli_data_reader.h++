@@ -24,9 +24,6 @@ float get_float_from_user(){
 bool get_bool_from_user(){
     std::string buffer;
     getline(std::cin, buffer);
-//    for (char a : buffer){
-//        a = toupper(a);
-//    }
     for (unsigned int i = 0; i < buffer.size(); i++){
         buffer[i] = toupper(buffer[i]);
     }
@@ -51,7 +48,7 @@ int get_int_more_0_from_user(){
     return result;
 }
 
-float get_any_int_from_user(){
+int get_any_int_from_user(){
     int result;
     std::string buffer;
     getline(std::cin, buffer);

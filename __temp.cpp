@@ -1,143 +1,142 @@
-// Lesson 4
-
+//
+// Created by yaroslav_admin on 19.10.22.
+//
 #include <iostream>
-#include <cmath>
+#include <string>
+#include <fstream>
+#include <vector>
 
-std::string alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-
-void print_human_readable (int value[1024], int cs){
-    if (cs > 36) {
-        std::cout << "[";
-        for (int i = 0; i < 1024; i++) {
-            if (value[i] != -1) {
-                std::cout << value[i];
-                std::cout << ", ";
-            }
-        }
-        std::cout << "]";
+bool get_bool_from_user(){
+    std::string buffer;
+    getline(std::cin, buffer);
+    for (unsigned int i = 0; i < buffer.size(); i++){
+        buffer[i] = toupper(buffer[i]);
     }
-    else {
-        for (int i = 0; i < 1024; i++) {
-            if (value[i] != -1) {
-                std::cout << alphabet[value[i]];
-            }
-        }
-    }
-    std::cout << std::endl;
-
+    if (buffer == "Y" or buffer == "YES" or buffer == "TRUE" or buffer == "OK" or buffer == "+")
+        return true;
+    if (buffer == "N" or buffer == "NO" or buffer == "FALSE" or buffer == "-")
+        return false;
+    std::cout << "Не корректный ввод! y/n :" << std::endl;
+    return get_bool_from_user();
 }
 
-int to_dec(int value[1024], int cs) {
-    int result;
-    int j = 0;
-    while (value[j] != -1){
-        result += pow(cs, j) * value[j];
-        j++;
+std::vector<std::string> data;
+bool is_punctuation(char a){
+    for (char i : "0123456789?/\\,.<>;:'\"[]{}()_-+=*&^%$#@!~` ”\t\n")
+        if (a == i)
+            return true;
+    return false;
+}
+
+std::vector<std::string> split(std::string &str){
+    std::vector<std::string> result;
+    std::string buffer;
+    for(auto i : str){
+        if (!is_punctuation(i)){
+            buffer += (char)std::tolower(i);
+        }
+        else {
+            if (!buffer.empty())
+                result.push_back(buffer);
+            buffer.clear();
+        }
     }
+    if (!buffer.empty())
+        result.push_back(buffer);
     return result;
 }
 
 
-int get_index(char a) {
-    for (int i = 0; i < 36; i++){
-        if (alphabet[i] == std::toupper(a)){
-            return i;
-        }
+bool exists_in_data (std::string &val){
+    for (auto i : data){
+        if (val == i)
+            return true;
     }
-    return -1;
+    return false;
 }
 
+void load_data(std::string filename){
+    std::ifstream file_in;
+    file_in.open(filename);
+    if (!file_in){
+        std::cout << "Нет такого файла !!!" << std::endl;
+        exit(0);
+    }
+    std::string buffer;
 
-bool check_input_correct(std::string input, int cs){
-    for (char i : input) {
-        if (get_index(i) >= cs)
+    while(std::getline(file_in, buffer)){
+        for (auto s : split(buffer))
+            if (!exists_in_data(s))
+                data.push_back(s);
+    }
+
+}
+
+bool str_a_is_more_than_b (std::string a, std::string b){
+    for (unsigned int i = 0; i < a.length();i++){
+        if (i >= b.length())
+            return true;
+        if ((int)a[i] > (int)b[i])
+            return true;
+        if ((int)a[i] < (int)b[i])
             return false;
     }
-    return true;
+    return false;
 }
 
 
-int* to_any(int dec_value, int cs) {
-    int pre_result[1024];
-    for (int i = 0; i < 1024; i++){
-        pre_result[i] = -1;
-    }
-    static int result[1024];
-    for (int i = 0; i < 1024; i++){
-        result[i] = -1;
-    }
-    int temp = dec_value;
-    int j = 0;
-
-    while (temp >= cs){
-        //std::cout << temp << " div =" << temp / cs << " ost =" << temp % cs << std::endl;
-        pre_result[1024 - (j + 1)] = temp % cs;
-        temp = temp / cs;
-        j++;
-    }
-    if (temp > 0){
-
-        pre_result[1024 - (j + 1)] = temp;
-    }
-
-
-    j = 0;
-    for (int i = 0; i < 1024; i++){
-        if (pre_result[i] != -1) {
-            result[j] = pre_result[i];
-            j++;
+void sort_data(){
+    for (unsigned int j = 0; j < data.size(); j++){
+        for (unsigned int i = 0; i < data.size() - 1; i++){
+            if (str_a_is_more_than_b(data[i], data[i + 1])){
+                std::swap(data[i], data[i + 1]);
+            }
         }
     }
-    return result;
+
 
 }
 
-
-int read_data_to_dec(int cs){
-    static int result;
-    static char a[1024];
-
-    for (int i = 0; i < 1024; i++){
-        a[i] = ' ';
-    }
-    std::cout << "Введите число :" << std::endl;
-    std::cin >> a;
-    while (!check_input_correct(a, cs)){
-        std::cout << "Ввод некоректен (Не соответствует заявленой системе счисления) !"<< std::endl;
-        std::cout << "Введите число: ";
-        // std::getline(std::cin, a);
-        std::cin >> a;
-    }
-
-    char t;
-    int j = 0;
-    for (int i = 0; i < 1024; i++){
-        t = a[1024 - (1 + i)];
-        if (t != ' ' and t != '\n' and (int)t > 0 ){
-            result = result + get_index(t) * pow(cs, j);
-            j++;
-        }
-    }
-    return result;
-}
-
-int main() {
+int main (){
 #if defined(WIN32)
     setlocale(LC_ALL, "Rus");
 #else
     setlocale(LC_ALL, "ru_RU.UTF-8");
 #endif
-    std::cout << "Введите систему счисления (целое число) :" << std::endl;
-    int cs;
-    std::cin >> cs;
-    int data_in;
-    data_in = read_data_to_dec(cs);
+    std::cout << "Данная программа читает слова из файла, сортирует их." << std::endl;
 
-    std::cout << "Введите новую систему счисления (целое число) :" << std::endl;
-    std::cin >> cs;
-    print_human_readable(to_any(data_in, cs), cs);
+    std::string filename;
+    std::cout << "Введите имя входного файла (Например LoremIpsum1.txt):" << std::endl;
+    getline(std::cin, filename);
+    load_data(filename);
+    if (data.size() == 0){
+        std::cout << "В файле нет слов !" << std::endl;
+        exit(0);
+    }
+    sort_data();
+    sort_data();
 
+    std::cout << "Записать отсортированные слова в файл text_17_out.txt? [y/n]" << std::endl;
+    bool do_file_out = get_bool_from_user();
+    std::ofstream out_file;
+    if (do_file_out)
+        out_file.open("text_17_out.txt");
 
+    std::cout << "Вывести отсортированные слова на экран? [y/n]" << std::endl;
+    bool do_std_out = get_bool_from_user();
+
+    if (do_std_out) {
+        std::cout << "Отсортированные слова:" << std::endl;
+        for (auto w: data) {
+            if (do_file_out)
+                out_file << w << std::endl;
+            std::cout << w << std::endl;
+        }
+    }
+    if (do_file_out)
+        for (auto w: data) {
+            out_file << w << std::endl;
+        }
+    out_file.close();
     return 0;
 }

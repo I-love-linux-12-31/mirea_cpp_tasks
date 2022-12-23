@@ -1,7 +1,6 @@
 //
 // Created by yaroslav_admin on 19.10.22.
 //
-// Первый разднл !
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -46,14 +45,16 @@ bool exists_in_data (std::string &val){
 void load_data(std::string filename){
     std::ifstream file_in;
     file_in.open(filename);
+    if (!file_in){
+        std::cout << "Нет такого файла !!!" << std::endl;
+        exit(0);
+    }
     std::string buffer;
 
     while(std::getline(file_in, buffer)){
-        //std::cout << ">>" << buffer << std::endl;
         for (auto s : split(buffer))
             if (!exists_in_data(s))
                 data.push_back(s);
-                //std::cout << "Pushing : " << s << std::endl;
     }
 
 }
@@ -75,7 +76,6 @@ void sort_data(){
     for (unsigned int j = 0; j < data.size(); j++){
         for (unsigned int i = 0; i < data.size() - 1; i++){
             if (str_a_is_more_than_b(data[i], data[i + 1])){
-                //std::cout << "Swapping :" << data[i] << " | " << data[i + 1] << std::endl;
                 std::swap(data[i], data[i + 1]);
             }
         }
@@ -85,10 +85,15 @@ void sort_data(){
 }
 
 int main (){
+#if defined(WIN32)
+    setlocale(LC_ALL, "Rus");
+#else
+    setlocale(LC_ALL, "ru_RU.UTF-8");
+#endif
     std::cout << "Данная программа читает слова из файла, сортирует их." << std::endl;
 
     std::string filename;
-    std::cout << "Введите имя входного файла:" << std::endl;
+    std::cout << "Введите имя входного файла (Например LoremIpsum1.txt):" << std::endl;
     getline(std::cin, filename);
     load_data(filename);
     if (data.size() == 0){
